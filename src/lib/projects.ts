@@ -50,7 +50,7 @@ export const projects: Project[] = [
     title: "Finance Z: Track, Plan & Slay",
     kicker:
       "Turning messy student money habits into smart, social, goal-driven finance, designed for Gen Z, not at them.",
-    year: "2025",
+    year: "2023",
     role: "Lead Product Designer · 0→1",
     status: "Done",
     tldr: {

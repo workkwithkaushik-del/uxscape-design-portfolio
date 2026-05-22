@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -110,6 +111,13 @@ const experience = [
 ];
 
 function Home() {
+  const [selectedYear, setSelectedYear] = useState<string>("All");
+
+  const sortedProjects = [...projects].sort((a, b) => b.year.localeCompare(a.year));
+  const filteredProjects = sortedProjects.filter(
+    (p) => selectedYear === "All" || p.year === selectedYear,
+  );
+
   return (
     <div className="min-h-screen">
       <SiteHeader />
@@ -220,8 +228,28 @@ function Home() {
           </p>
         </div>
 
+        {/* YEAR FILTER */}
+        <div className="flex flex-wrap items-center gap-2 mb-8">
+          <span className="text-xs uppercase tracking-widest text-muted-foreground mr-2 font-mono">
+            Filter by Year:
+          </span>
+          {["All", "2026", "2025", "2024", "2023"].map((year) => (
+            <button
+              key={year}
+              onClick={() => setSelectedYear(year)}
+              className={`px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-widest border transition-all ${
+                selectedYear === year
+                  ? "bg-foreground text-background border-foreground shadow-sm"
+                  : "bg-transparent text-muted-foreground border-border hover:border-foreground hover:text-foreground"
+              }`}
+            >
+              {year}
+            </button>
+          ))}
+        </div>
+
         <div className="grid md:grid-cols-2 gap-5 md:gap-6 [perspective:1400px]">
-          {projects.map((p, i) => (
+          {filteredProjects.map((p, i) => (
             <ScrollFlipCard
               key={p.slug}
               axis={i % 2 === 0 ? "x" : "y"}
