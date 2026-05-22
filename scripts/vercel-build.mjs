@@ -2,17 +2,17 @@
  * Post-build script that constructs Vercel Build Output API v3 structure
  * from the TanStack Start vite build output.
  *
- * Key: we set VITE_SSR_NO_EXTERNAL=1 and use a temporary vite config
- * that adds ssr.noExternal:true ONLY for the production build, so dev
- * mode is unaffected.
+ * Key: we use a temporary vite config that adds ssr.noExternal:true
+ * ONLY for the production build, so all npm packages are bundled inline
+ * (required for Edge Functions to be self-contained).
  *
  * Output:
  *   .vercel/output/config.json
  *   .vercel/output/static/               → client assets
  *   .vercel/output/functions/ssr.func/
- *       index.mjs                        → Node.js serverless handler
+ *       index.mjs                        → Edge function wrapper
  *       dist/server/                     → copied server bundle (all deps bundled)
- *       .vc-config.json                  → function config (nodejs22.x)
+ *       .vc-config.json                  → function config (edge)
  */
 
 import { execSync } from "node:child_process";
@@ -31,9 +31,6 @@ const STATIC = join(OUT, "static");
 const FUNC = join(OUT, "functions", "ssr.func");
 
 // ── 1. Create a temporary vite config that wraps the real one ────────
-//    This adds ssr.noExternal:true only for the production build so
-//    all npm packages are bundled into the server chunks (required for
-//    serverless — no node_modules at runtime).
 const tmpConfig = join(ROOT, "vite.config.vercel-build.ts");
 writeFileSync(
   tmpConfig,
@@ -50,14 +47,13 @@ export default async (env) => {
 );
 
 // ── 2. Run vite build with the temporary config ─────────────────────
-console.log("\\n🔨 Running vite build (with bundled SSR deps)...\\n");
+console.log("\n🔨 Running vite build (with bundled SSR deps)...\n");
 try {
   execSync(`npx vite build --config vite.config.vercel-build.ts`, {
     stdio: "inherit",
     cwd: ROOT,
   });
 } finally {
-  // Always clean up the temp config
   try { unlinkSync(tmpConfig); } catch {}
 }
 
@@ -71,7 +67,7 @@ if (!existsSync(distClient) || !existsSync(distServer)) {
 }
 
 // ── 4. Clean & create output directories ────────────────────────────
-console.log("\\n📦 Constructing .vercel/output ...\\n");
+console.log("\n📦 Constructing .vercel/output ...\n");
 execSync(`rm -rf "${OUT}"`, { cwd: ROOT });
 mkdirSync(STATIC, { recursive: true });
 mkdirSync(FUNC, { recursive: true });
@@ -86,26 +82,26 @@ mkdirSync(funcServer, { recursive: true });
 cpSync(distServer, funcServer, { recursive: true });
 console.log("   ✔ Copied dist/server → function bundle");
 
-// ── 7. Write the Node.js serverless function handler ────────────────
+// ── 7. Write the Edge Function wrapper ──────────────────────────────
 const wrapperCode = `
 import server from "./dist/server/server.js";
 
 export default async function handler(request) {
   return server.fetch(request, {}, {});
 }
+
+export const config = { runtime: "edge" };
 `;
 writeFileSync(join(FUNC, "index.mjs"), wrapperCode.trim() + "\n");
-console.log("   ✔ Wrote index.mjs (Node.js serverless handler)");
+console.log("   ✔ Wrote index.mjs (Edge Function handler)");
 
 // ── 8. Write .vc-config.json for the function ───────────────────────
 const vcConfig = {
-  runtime: "nodejs22.x",
-  handler: "index.mjs",
-  launcherType: "Nodejs",
-  supportsResponseStreaming: true,
+  runtime: "edge",
+  entrypoint: "index.mjs",
 };
 writeFileSync(join(FUNC, ".vc-config.json"), JSON.stringify(vcConfig, null, 2) + "\n");
-console.log("   ✔ Wrote .vc-config.json (nodejs22.x)");
+console.log("   ✔ Wrote .vc-config.json (edge)");
 
 // ── 9. Build the routing config ─────────────────────────────────────
 const routingConfig = {
