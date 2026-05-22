@@ -151,6 +151,13 @@ const vcConfig = {
 writeFileSync(join(FUNC, ".vc-config.json"), JSON.stringify(vcConfig, null, 2) + "\n");
 console.log("   ✔ Wrote .vc-config.json (nodejs22.x)");
 
+// ── 8.5. Write package.json so Node.js treats .js bundles as ES Modules ──
+const funcPackageJson = {
+  type: "module",
+};
+writeFileSync(join(FUNC, "package.json"), JSON.stringify(funcPackageJson, null, 2) + "\n");
+console.log("   ✔ Wrote package.json (type: module)");
+
 // ── 9. Build the routing config ─────────────────────────────────────
 const routingConfig = {
   version: 3,
