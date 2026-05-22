@@ -2,17 +2,17 @@
  * Post-build script that constructs Vercel Build Output API v3 structure
  * from the TanStack Start vite build output.
  *
- * Key: we use a temporary vite config that adds ssr.noExternal:true
- * ONLY for the production build, so all npm packages are bundled inline
- * (required for Edge Functions to be self-contained).
+ * Key: we use the standard nodejs22.x runtime (which fully supports
+ * node:stream and crypto needed by React 19 SSR) and use a highly robust
+ * adapter that bridges Node's req/res streams with Web Fetch Requests.
  *
  * Output:
  *   .vercel/output/config.json
  *   .vercel/output/static/               → client assets
  *   .vercel/output/functions/ssr.func/
- *       index.mjs                        → Edge function wrapper
+ *       index.mjs                        → Node.js serverless handler
  *       dist/server/                     → copied server bundle (all deps bundled)
- *       .vc-config.json                  → function config (edge)
+ *       .vc-config.json                  → function config (nodejs22.x)
  */
 
 import { execSync } from "node:child_process";
@@ -82,26 +82,78 @@ mkdirSync(funcServer, { recursive: true });
 cpSync(distServer, funcServer, { recursive: true });
 console.log("   ✔ Copied dist/server → function bundle");
 
-// ── 7. Write the Edge Function wrapper ──────────────────────────────
+// ── 7. Write the Node.js serverless function handler ────────────────
 const wrapperCode = `
+import { Readable } from "node:stream";
 import server from "./dist/server/server.js";
 
-export default async function handler(request) {
-  return server.fetch(request, {}, {});
-}
+export default async function handler(req, res) {
+  try {
+    // 1. Construct the absolute URL
+    const protocol = req.headers["x-forwarded-proto"] || "http";
+    const host = req.headers["x-forwarded-host"] || req.headers.host || "localhost";
+    const url = new URL(req.url, \`\${protocol}://\${host}\`);
 
-export const config = { runtime: "edge" };
+    // 2. Map Node headers to Fetch Headers
+    const headers = new Headers();
+    for (const [key, value] of Object.entries(req.headers)) {
+      if (value !== undefined) {
+        if (Array.isArray(value)) {
+          value.forEach(v => headers.append(key, v));
+        } else {
+          headers.set(key, value);
+        }
+      }
+    }
+
+    // 3. Create Web Request Options
+    const requestOptions = {
+      method: req.method,
+      headers,
+    };
+
+    if (req.method !== "GET" && req.method !== "HEAD") {
+      requestOptions.body = req;
+      requestOptions.duplex = "half";
+    }
+
+    const request = new Request(url.toString(), requestOptions);
+
+    // 4. Call standard Fetch handler
+    const response = await server.fetch(request, {}, {});
+
+    // 5. Map Web Response back to Node res
+    res.statusCode = response.status;
+    response.headers.forEach((value, key) => {
+      if (key.toLowerCase() !== "transfer-encoding") {
+        res.setHeader(key, value);
+      }
+    });
+
+    if (response.body) {
+      Readable.fromWeb(response.body).pipe(res);
+    } else {
+      res.end();
+    }
+  } catch (error) {
+    console.error("SSR Function execution failed:", error);
+    res.statusCode = 500;
+    res.end("Internal Server Error");
+  }
+}
 `;
 writeFileSync(join(FUNC, "index.mjs"), wrapperCode.trim() + "\n");
-console.log("   ✔ Wrote index.mjs (Edge Function handler)");
+console.log("   ✔ Wrote index.mjs (Node-to-Fetch bridge handler)");
 
 // ── 8. Write .vc-config.json for the function ───────────────────────
 const vcConfig = {
-  runtime: "edge",
-  entrypoint: "index.mjs",
+  runtime: "nodejs22.x",
+  handler: "index.mjs",
+  launcherType: "Nodejs",
+  supportsResponseStreaming: true,
 };
 writeFileSync(join(FUNC, ".vc-config.json"), JSON.stringify(vcConfig, null, 2) + "\n");
-console.log("   ✔ Wrote .vc-config.json (edge)");
+console.log("   ✔ Wrote .vc-config.json (nodejs22.x)");
 
 // ── 9. Build the routing config ─────────────────────────────────────
 const routingConfig = {
