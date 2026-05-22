@@ -2,18 +2,17 @@
  * Post-build script that constructs Vercel Build Output API v3 structure
  * from the TanStack Start vite build output.
  *
- * Expected input:
- *   dist/client/         → static assets (JS, CSS, images, PDF, etc.)
- *   dist/server/server.js → SSR entry (Web Fetch API: export default { fetch })
- *   dist/server/assets/  → server-side JS chunks
+ * Key: we set VITE_SSR_NO_EXTERNAL=1 and use a temporary vite config
+ * that adds ssr.noExternal:true ONLY for the production build, so dev
+ * mode is unaffected.
  *
  * Output:
  *   .vercel/output/config.json
- *   .vercel/output/static/          → client assets
+ *   .vercel/output/static/               → client assets
  *   .vercel/output/functions/ssr.func/
- *       index.mjs                   → edge function wrapper
- *       dist/server/                → copied server bundle
- *       .vc-config.json             → function config
+ *       index.mjs                        → Node.js serverless handler
+ *       dist/server/                     → copied server bundle (all deps bundled)
+ *       .vc-config.json                  → function config (nodejs22.x)
  */
 
 import { execSync } from "node:child_process";
@@ -22,9 +21,7 @@ import {
   mkdirSync,
   writeFileSync,
   existsSync,
-  readdirSync,
-  statSync,
-  readFileSync,
+  unlinkSync,
 } from "node:fs";
 import { join } from "node:path";
 
@@ -33,11 +30,38 @@ const OUT = join(ROOT, ".vercel", "output");
 const STATIC = join(OUT, "static");
 const FUNC = join(OUT, "functions", "ssr.func");
 
-// ── 1. Run vite build ──────────────────────────────────────────────
-console.log("\n🔨 Running vite build...\n");
-execSync("npx vite build", { stdio: "inherit", cwd: ROOT });
+// ── 1. Create a temporary vite config that wraps the real one ────────
+//    This adds ssr.noExternal:true only for the production build so
+//    all npm packages are bundled into the server chunks (required for
+//    serverless — no node_modules at runtime).
+const tmpConfig = join(ROOT, "vite.config.vercel-build.ts");
+writeFileSync(
+  tmpConfig,
+  `import baseConfigFn from "./vite.config";
+import { mergeConfig } from "vite";
 
-// ── 2. Verify dist output exists ────────────────────────────────────
+export default async (env) => {
+  const base = await (typeof baseConfigFn === "function" ? baseConfigFn(env) : baseConfigFn);
+  return mergeConfig(base, {
+    ssr: { noExternal: true },
+  });
+};
+`
+);
+
+// ── 2. Run vite build with the temporary config ─────────────────────
+console.log("\\n🔨 Running vite build (with bundled SSR deps)...\\n");
+try {
+  execSync(`npx vite build --config vite.config.vercel-build.ts`, {
+    stdio: "inherit",
+    cwd: ROOT,
+  });
+} finally {
+  // Always clean up the temp config
+  try { unlinkSync(tmpConfig); } catch {}
+}
+
+// ── 3. Verify dist output exists ────────────────────────────────────
 const distClient = join(ROOT, "dist", "client");
 const distServer = join(ROOT, "dist", "server");
 
@@ -46,75 +70,57 @@ if (!existsSync(distClient) || !existsSync(distServer)) {
   process.exit(1);
 }
 
-// ── 3. Clean & create output directories ────────────────────────────
-console.log("\n📦 Constructing .vercel/output ...\n");
+// ── 4. Clean & create output directories ────────────────────────────
+console.log("\\n📦 Constructing .vercel/output ...\\n");
 execSync(`rm -rf "${OUT}"`, { cwd: ROOT });
 mkdirSync(STATIC, { recursive: true });
 mkdirSync(FUNC, { recursive: true });
 
-// ── 4. Copy client assets to static ─────────────────────────────────
+// ── 5. Copy client assets to static ─────────────────────────────────
 cpSync(distClient, STATIC, { recursive: true });
 console.log("   ✔ Copied dist/client → .vercel/output/static");
 
-// ── 5. Copy server bundle into the function ─────────────────────────
+// ── 6. Copy server bundle into the function ─────────────────────────
 const funcServer = join(FUNC, "dist", "server");
 mkdirSync(funcServer, { recursive: true });
 cpSync(distServer, funcServer, { recursive: true });
 console.log("   ✔ Copied dist/server → function bundle");
 
-// ── 6. Write the Edge Function wrapper ──────────────────────────────
+// ── 7. Write the Node.js serverless function handler ────────────────
 const wrapperCode = `
 import server from "./dist/server/server.js";
 
 export default async function handler(request) {
   return server.fetch(request, {}, {});
 }
-
-export const config = { runtime: "edge" };
 `;
-writeFileSync(join(FUNC, "index.mjs"), wrapperCode.trim() + "\n");
-console.log("   ✔ Wrote index.mjs (edge function wrapper)");
+writeFileSync(join(FUNC, "index.mjs"), wrapperCode.trim() + "\\n");
+console.log("   ✔ Wrote index.mjs (Node.js serverless handler)");
 
-// ── 7. Write .vc-config.json for the function ───────────────────────
+// ── 8. Write .vc-config.json for the function ───────────────────────
 const vcConfig = {
-  runtime: "edge",
-  entrypoint: "index.mjs",
+  runtime: "nodejs22.x",
+  handler: "index.mjs",
+  launcherType: "Nodejs",
+  supportsResponseStreaming: true,
 };
-writeFileSync(join(FUNC, ".vc-config.json"), JSON.stringify(vcConfig, null, 2) + "\n");
-console.log("   ✔ Wrote .vc-config.json");
+writeFileSync(join(FUNC, ".vc-config.json"), JSON.stringify(vcConfig, null, 2) + "\\n");
+console.log("   ✔ Wrote .vc-config.json (nodejs22.x)");
 
-// ── 8. Build the routing config ─────────────────────────────────────
-// Collect all static file paths for exact/prefix matching
-function collectFiles(dir, prefix = "") {
-  const entries = [];
-  for (const name of readdirSync(dir)) {
-    const full = join(dir, name);
-    const rel = prefix ? `${prefix}/${name}` : name;
-    if (statSync(full).isDirectory()) {
-      entries.push(...collectFiles(full, rel));
-    } else {
-      entries.push(`/${rel}`);
-    }
-  }
-  return entries;
-}
-
-const config = {
+// ── 9. Build the routing config ─────────────────────────────────────
+const routingConfig = {
   version: 3,
   routes: [
-    // Serve known static assets directly (assets/, PDFs, etc.)
     {
       src: "/assets/(.*)",
       headers: { "Cache-Control": "public, max-age=31536000, immutable" },
     },
-    // Let Vercel handle static files first, then fall through to SSR
     { handle: "filesystem" },
-    // Everything else → SSR function
     { src: "/(.*)", dest: "/ssr" },
   ],
 };
 
-writeFileSync(join(OUT, "config.json"), JSON.stringify(config, null, 2) + "\n");
+writeFileSync(join(OUT, "config.json"), JSON.stringify(routingConfig, null, 2) + "\\n");
 console.log("   ✔ Wrote config.json (routing)");
 
-console.log("\n✅ .vercel/output ready for deployment!\n");
+console.log("\\n✅ .vercel/output ready for deployment!\\n");
