@@ -16,13 +16,7 @@
  */
 
 import { execSync } from "node:child_process";
-import {
-  cpSync,
-  mkdirSync,
-  writeFileSync,
-  existsSync,
-  unlinkSync,
-} from "node:fs";
+import { cpSync, mkdirSync, writeFileSync, existsSync, unlinkSync } from "node:fs";
 import { join } from "node:path";
 
 const ROOT = process.cwd();
@@ -43,7 +37,7 @@ export default async (env) => {
     ssr: { noExternal: true },
   });
 };
-`
+`,
 );
 
 // ── 2. Run vite build with the temporary config ─────────────────────
@@ -54,7 +48,9 @@ try {
     cwd: ROOT,
   });
 } finally {
-  try { unlinkSync(tmpConfig); } catch {}
+  try {
+    unlinkSync(tmpConfig);
+  } catch {}
 }
 
 // ── 3. Verify dist output exists ────────────────────────────────────

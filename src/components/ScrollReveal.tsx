@@ -63,7 +63,7 @@ export function ScrollFlipCard({
   const rot: MotionValue<number> = useTransform(
     scrollYProgress,
     [0, 0.5, 1],
-    [strength, 0, -strength]
+    [strength, 0, -strength],
   );
   const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.95, 1, 0.97]);
   return (

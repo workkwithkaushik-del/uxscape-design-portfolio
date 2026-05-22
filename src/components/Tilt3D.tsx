@@ -19,6 +19,11 @@ export function Tilt3D({ children, className, max = 8, glare = true, scale = 1.0
   const ry = useSpring(useTransform(x, [-0.5, 0.5], [-max, max]), { stiffness: 180, damping: 18 });
   const glareX = useTransform(x, [-0.5, 0.5], ["0%", "100%"]);
   const glareY = useTransform(y, [-0.5, 0.5], ["0%", "100%"]);
+  const glareBg = useTransform(
+    [glareX, glareY] as never,
+    ([gx, gy]: string[]) =>
+      `radial-gradient(400px circle at ${gx} ${gy}, rgba(255,255,255,0.35), transparent 45%)`,
+  );
 
   const onMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = ref.current;
@@ -39,7 +44,12 @@ export function Tilt3D({ children, className, max = 8, glare = true, scale = 1.0
       onMouseLeave={onLeave}
       whileHover={{ scale }}
       transition={{ type: "spring", stiffness: 220, damping: 22 }}
-      style={{ rotateX: rx, rotateY: ry, transformStyle: "preserve-3d", transformPerspective: 1200 }}
+      style={{
+        rotateX: rx,
+        rotateY: ry,
+        transformStyle: "preserve-3d",
+        transformPerspective: 1200,
+      }}
       className={className}
     >
       <div style={{ transform: "translateZ(0.01px)" }} className="relative h-full w-full">
@@ -49,11 +59,7 @@ export function Tilt3D({ children, className, max = 8, glare = true, scale = 1.0
             aria-hidden
             className="pointer-events-none absolute inset-0 rounded-[inherit] mix-blend-soft-light opacity-60"
             style={{
-              background: useTransform(
-                [glareX, glareY] as never,
-                ([gx, gy]: string[]) =>
-                  `radial-gradient(400px circle at ${gx} ${gy}, rgba(255,255,255,0.35), transparent 45%)`
-              ),
+              background: glareBg,
             }}
           />
         )}

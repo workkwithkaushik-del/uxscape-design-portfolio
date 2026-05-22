@@ -27,14 +27,18 @@ export const projects: Project[] = [
   {
     slug: "kitchen-iq",
     title: "KitchenIQ",
-    kicker: "A Bloomberg Terminal for India's cloud kitchens, real-time demand, price, and competitive intelligence built on Swiggy's live network.",
+    kicker:
+      "A Bloomberg Terminal for India's cloud kitchens, real-time demand, price, and competitive intelligence built on Swiggy's live network.",
     year: "2026",
     role: "Founding Designer · 0→1 SaaS",
     status: "Coming soon",
     tldr: {
-      problem: "India's 18,000+ cloud kitchen operators decide what to cook, where to expand, and how to price using gut feel, and 60% fail inside 18 months.",
-      solution: "A real-time market-intelligence SaaS built on Swiggy's live restaurant, menu, and pricing APIs, three lenses: Demand, Price, Competitive.",
-      result: "In design now. Targeting 100 paying brands in Year 1 (₹6 Cr ARR) on a ₹1,800 Cr TAM.",
+      problem:
+        "India's 18,000+ cloud kitchen operators decide what to cook, where to expand, and how to price using gut feel, and 60% fail inside 18 months.",
+      solution:
+        "A real-time market-intelligence SaaS built on Swiggy's live restaurant, menu, and pricing APIs, three lenses: Demand, Price, Competitive.",
+      result:
+        "In design now. Targeting 100 paying brands in Year 1 (₹6 Cr ARR) on a ₹1,800 Cr TAM.",
     },
     tags: ["B2B SaaS", "Data viz", "0→1", "In design"],
     hero: "linear-gradient(135deg, oklch(0.32 0.05 145) 0%, oklch(0.55 0.14 155) 100%)",
@@ -44,32 +48,39 @@ export const projects: Project[] = [
   {
     slug: "finance-z",
     title: "Finance Z: Track, Plan & Slay",
-    kicker: "Turning messy student money habits into smart, social, goal-driven finance, designed for Gen Z, not at them.",
+    kicker:
+      "Turning messy student money habits into smart, social, goal-driven finance, designed for Gen Z, not at them.",
     year: "2025",
     role: "Lead Product Designer · 0→1",
     status: "Done",
     tldr: {
-      problem: "Students were drowning in scattered UPI receipts, group-split chaos, and finance apps that spoke like accountants, 73% abandoned within two weeks.",
-      solution: "A bold, social, goal-first money app where every screen reframes spending as a story you're writing with your friends, not a ledger you're auditing.",
+      problem:
+        "Students were drowning in scattered UPI receipts, group-split chaos, and finance apps that spoke like accountants, 73% abandoned within two weeks.",
+      solution:
+        "A bold, social, goal-first money app where every screen reframes spending as a story you're writing with your friends, not a ledger you're auditing.",
       result: "+62% day-7 retention vs. the leading incumbent in unmoderated tests.",
     },
     tags: ["0→1", "Mobile", "Gen-Z", "Behavioral design"],
     hero: "linear-gradient(135deg, oklch(0.58 0.165 35) 0%, oklch(0.78 0.12 70) 100%)",
     cover: coverFinanceZ,
-    liveUrl: "https://www.figma.com/proto/woGOzKqgWIa8nZYHAkZlPK/FinZ-final?node-id=493-487&p=f&viewport=-276%2C50%2C0.14&t=BoFdNvRSbZbPlLNK-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=493%3A424&show-proto-sidebar=1",
+    liveUrl:
+      "https://www.figma.com/proto/woGOzKqgWIa8nZYHAkZlPK/FinZ-final?node-id=493-487&p=f&viewport=-276%2C50%2C0.14&t=BoFdNvRSbZbPlLNK-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=493%3A424&show-proto-sidebar=1",
     liveLabel: "Open Figma prototype",
     hasFullCase: true,
   },
   {
     slug: "aroma-labs",
     title: "The Aroma Labs",
-    kicker: "A data-driven ERP + customer app for a multi-outlet F&B brand, cut ops friction and unlocked scalable growth.",
+    kicker:
+      "A data-driven ERP + customer app for a multi-outlet F&B brand, cut ops friction and unlocked scalable growth.",
     year: "2025",
     role: "Product Designer · ERP + Consumer",
     status: "Done",
     tldr: {
-      problem: "A growing multi-outlet F&B brand was running ops on WhatsApp and spreadsheets, owners couldn't see what was happening across stores in real time.",
-      solution: "A two-sided system: an ERP for ops + inventory + staff, and a consumer app for ordering and loyalty, sharing one design language and one source of truth.",
+      problem:
+        "A growing multi-outlet F&B brand was running ops on WhatsApp and spreadsheets, owners couldn't see what was happening across stores in real time.",
+      solution:
+        "A two-sided system: an ERP for ops + inventory + staff, and a consumer app for ordering and loyalty, sharing one design language and one source of truth.",
       result: "Enabled real-time cross-outlet decisions; rolled out to all locations.",
     },
     tags: ["ERP", "F&B", "0→1", "Two-sided"],
@@ -87,8 +98,10 @@ export const projects: Project[] = [
     role: "UX Designer · Revamp",
     status: "In progress",
     tldr: {
-      problem: "Cart abandonment sat at 71%, users couldn't tell three earbud SKUs apart on a 5.5\" screen.",
-      solution: "A comparison-first PDP that surfaces the one spec each persona actually cares about, in plain language.",
+      problem:
+        "Cart abandonment sat at 71%, users couldn't tell three earbud SKUs apart on a 5.5\" screen.",
+      solution:
+        "A comparison-first PDP that surfaces the one spec each persona actually cares about, in plain language.",
       result: "Add-to-cart projected +28% in usability test (n=12); shipping to engineering Q1.",
     },
     tags: ["E-commerce", "Revamp", "Research"],
@@ -105,7 +118,8 @@ export const projects: Project[] = [
     status: "Done",
     tldr: {
       problem: "Showrooms wanted a digital companion that wouldn't cheapen a £200k brand.",
-      solution: "A single-scroll narrative built around negative space and one hero moment per panel.",
+      solution:
+        "A single-scroll narrative built around negative space and one hero moment per panel.",
       result: "Used as the in-showroom tablet experience across 3 dealerships.",
     },
     tags: ["Brand UX", "Microsite"],
@@ -124,7 +138,8 @@ export const projects: Project[] = [
     status: "Done",
     tldr: {
       problem: "Ericsson's 5G rollout story was buried under PDFs nobody opened.",
-      solution: "A scroll-driven microsite that makes radio access networks legible to policy makers.",
+      solution:
+        "A scroll-driven microsite that makes radio access networks legible to policy makers.",
       result: "Featured in two industry briefings; bounce rate dropped from 68% to 31%.",
     },
     tags: ["B2B", "Microsite", "Storytelling"],
@@ -160,7 +175,8 @@ export const projects: Project[] = [
     status: "Done",
     tldr: {
       problem: "The brand team opened the dashboard, got overwhelmed, and went back to Excel.",
-      solution: "Reorganized around three jobs-to-be-done, hid everything else behind progressive disclosure.",
+      solution:
+        "Reorganized around three jobs-to-be-done, hid everything else behind progressive disclosure.",
       result: "Daily active users on the dashboard 3×'d over six weeks.",
     },
     tags: ["Data viz", "Dashboard"],

@@ -13,42 +13,100 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Kaushik Patil, Product Designer who ships outcomes, not screens" },
-      { name: "description", content: "I design scalable, human-centred experiences that move retention, adoption, and trust. SaaS, consumer, and AI workflows." },
+      {
+        name: "description",
+        content:
+          "I design scalable, human-centred experiences that move retention, adoption, and trust. SaaS, consumer, and AI workflows.",
+      },
       { property: "og:title", content: "Kaushik Patil, Product Designer" },
-      { property: "og:description", content: "Portfolio of case studies showing the messy middle: problem inherited, assumption challenged, decision shipped." },
+      {
+        property: "og:description",
+        content:
+          "Portfolio of case studies showing the messy middle: problem inherited, assumption challenged, decision shipped.",
+      },
     ],
   }),
   component: Home,
 });
 
 const skills = {
-  "UX Research": ["User Interviews", "Survey Design", "Heuristic Analysis", "Persona Building", "Journey Mapping", "Usability Testing", "A/B Testing", "Feedback Synthesis"],
-  "Product Design": ["Wireframing", "User Flows", "High-Fidelity UI", "Interactive Prototyping", "Design Systems", "Accessibility", "Dashboard Design", "Data Viz"],
-  "AI / UX": ["Prompt Engineering", "Human-in-the-Loop", "Trust, Ethics & Bias", "Explainable AI", "Conversational UX", "Error Recovery", "AI Workflow Automation"],
-  "Craft & Tools": ["Figma", "FigJam", "Cursor", "ChatGPT", "Power BI", "HTML/CSS", "Basic JS", "GitHub"],
+  "UX Research": [
+    "User Interviews",
+    "Survey Design",
+    "Heuristic Analysis",
+    "Persona Building",
+    "Journey Mapping",
+    "Usability Testing",
+    "A/B Testing",
+    "Feedback Synthesis",
+  ],
+  "Product Design": [
+    "Wireframing",
+    "User Flows",
+    "High-Fidelity UI",
+    "Interactive Prototyping",
+    "Design Systems",
+    "Accessibility",
+    "Dashboard Design",
+    "Data Viz",
+  ],
+  "AI / UX": [
+    "Prompt Engineering",
+    "Human-in-the-Loop",
+    "Trust, Ethics & Bias",
+    "Explainable AI",
+    "Conversational UX",
+    "Error Recovery",
+    "AI Workflow Automation",
+  ],
+  "Craft & Tools": [
+    "Figma",
+    "FigJam",
+    "Cursor",
+    "ChatGPT",
+    "Power BI",
+    "HTML/CSS",
+    "Basic JS",
+    "GitHub",
+  ],
 };
 
 const recommendations = [
   {
     name: "Sagar Darekar",
     role: "Customer Success, iMocha",
-    quote: "Kaushik possesses a remarkable ability to deeply understand complex client problems. He consistently went beyond surface-level requirements, delving into the core challenges users faced. His wireframes were not just visually clear, but also functionally robust, an excellent foundation for design and development.",
+    quote:
+      "Kaushik possesses a remarkable ability to deeply understand complex client problems. He consistently went beyond surface-level requirements, delving into the core challenges users faced. His wireframes were not just visually clear, but also functionally robust, an excellent foundation for design and development.",
   },
   {
     name: "Tushar Pawar",
     role: "UX Design Lead, iMocha",
-    quote: "Kaushik brings a rare mix of curiosity, technical aptitude, and user-centered thinking. He owned end-to-end UX for key microsites, contributed to AI-UX guidelines, built a custom Figma plugin to streamline UX writing, and designed scalable dashboards in Power BI.",
+    quote:
+      "Kaushik brings a rare mix of curiosity, technical aptitude, and user-centered thinking. He owned end-to-end UX for key microsites, contributed to AI-UX guidelines, built a custom Figma plugin to streamline UX writing, and designed scalable dashboards in Power BI.",
   },
   {
     name: "Amit Mohod",
     role: "Product Manager, iMocha",
-    quote: "Pragmatic, fast, opinionated in the way you want a designer to be. Made my PRDs sharper just by asking questions.",
+    quote:
+      "Pragmatic, fast, opinionated in the way you want a designer to be. Made my PRDs sharper just by asking questions.",
   },
 ];
 
 const experience = [
-  { role: "UI/UX & Application Designer", company: "Reval Analytical Services", location: "India", years: "2025, Now", note: "Designing analytical applications and dashboards for finance and research workflows. Bridging dense data with calm, decision-first interfaces." },
-  { role: "UX Design Intern", company: "iMocha", location: "Pune, MH", years: "2024", note: "Enterprise skill-assessment SaaS. Owned end-to-end UX for microsites, contributed to internal AI-UX guidelines, shipped a custom Figma plugin for UX writing, and designed Power BI dashboards." },
+  {
+    role: "UI/UX & Application Designer",
+    company: "Reval Analytical Services",
+    location: "India",
+    years: "2025, Now",
+    note: "Designing analytical applications and dashboards for finance and research workflows. Bridging dense data with calm, decision-first interfaces.",
+  },
+  {
+    role: "UX Design Intern",
+    company: "iMocha",
+    location: "Pune, MH",
+    years: "2024",
+    note: "Enterprise skill-assessment SaaS. Owned end-to-end UX for microsites, contributed to internal AI-UX guidelines, shipped a custom Figma plugin for UX writing, and designed Power BI dashboards.",
+  },
 ];
 
 function Home() {
@@ -65,8 +123,8 @@ function Home() {
         <div className="grid md:grid-cols-12 gap-10 items-start">
           <div className="md:col-span-9">
             <h1 className="font-serif text-[clamp(2.75rem,8vw,7rem)] leading-[0.95] tracking-tight">
-              I design products that earn the <em className="text-accent">second session,</em>{" "}
-              not just the install.
+              I design products that earn the <em className="text-accent">second session,</em> not
+              just the install.
             </h1>
           </div>
           {/* Floating portrait, parallax on hover, gentle float */}
@@ -76,11 +134,20 @@ function Home() {
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
             className="md:col-span-3 justify-self-end hidden md:block"
           >
-            <motion.div animate={{ y: [0, -10, 0] }} transition={{ repeat: Infinity, duration: 7, ease: "easeInOut" }}>
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ repeat: Infinity, duration: 7, ease: "easeInOut" }}
+            >
               <Tilt3D max={14} className="rounded-2xl">
                 <div className="bg-paper p-2.5 pb-8 rounded-2xl shadow-[0_30px_70px_-20px_rgba(0,0,0,0.45)] ring-1 ring-border w-44">
-                  <img src={headshot} alt="Kaushik Patil" className="w-full aspect-[4/5] object-cover rounded-lg" />
-                  <p className="text-center font-serif italic text-xs text-foreground/70 pt-2">Kaushik · designer</p>
+                  <img
+                    src={headshot}
+                    alt="Kaushik Patil"
+                    className="w-full aspect-[4/5] object-cover rounded-lg"
+                  />
+                  <p className="text-center font-serif italic text-xs text-foreground/70 pt-2">
+                    Kaushik · designer
+                  </p>
                 </div>
               </Tilt3D>
             </motion.div>
@@ -88,11 +155,24 @@ function Home() {
         </div>
         <div className="mt-12 grid md:grid-cols-12 gap-8 items-end">
           <p className="md:col-span-7 text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl">
-            I'm <span className="text-foreground">Kaushik Patil</span>, a product designer with 1+ year shipping enterprise SaaS platforms, dashboards, and workflow systems. I lead with the problem I inherited, the assumption I challenged, and the metric that moved because of it.
+            I'm <span className="text-foreground">Kaushik Patil</span>, a product designer with 1+
+            year shipping enterprise SaaS platforms, dashboards, and workflow systems. I lead with
+            the problem I inherited, the assumption I challenged, and the metric that moved because
+            of it.
           </p>
           <div className="md:col-span-5 flex flex-wrap gap-3 md:justify-end">
-            <a href="#work" className="px-5 py-3 rounded-full bg-foreground text-background text-sm hover:bg-accent transition-colors">See the work →</a>
-            <Link to="/contact" className="px-5 py-3 rounded-full border border-border text-sm hover:border-foreground transition-colors">Hire me</Link>
+            <a
+              href="#work"
+              className="px-5 py-3 rounded-full bg-foreground text-background text-sm hover:bg-accent transition-colors"
+            >
+              See the work →
+            </a>
+            <Link
+              to="/contact"
+              className="px-5 py-3 rounded-full border border-border text-sm hover:border-foreground transition-colors"
+            >
+              Hire me
+            </Link>
           </div>
         </div>
       </section>
@@ -102,7 +182,16 @@ function Home() {
         <div className="marquee whitespace-nowrap font-serif text-2xl md:text-3xl flex">
           {Array.from({ length: 2 }).map((_, i) => (
             <span key={i} className="flex shrink-0">
-              {["Research-led", "0→1", "Design systems", "AI/UX", "Behavioral design", "B2B SaaS", "Consumer", "Data viz"].map((w) => (
+              {[
+                "Research-led",
+                "0→1",
+                "Design systems",
+                "AI/UX",
+                "Behavioral design",
+                "B2B SaaS",
+                "Consumer",
+                "Data viz",
+              ].map((w) => (
                 <span key={w} className="px-8 flex items-center gap-8">
                   {w} <span className="text-accent">✦</span>
                 </span>
@@ -119,8 +208,12 @@ function Home() {
       <section id="work" className="mx-auto max-w-6xl px-6 py-24">
         <div className="flex items-end justify-between mb-12">
           <div>
-            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">Selected work · 2024–26</p>
-            <h2 className="font-serif text-5xl md:text-6xl max-w-3xl">Six case studies. Each one a different fight worth picking.</h2>
+            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">
+              Selected work · 2024–26
+            </p>
+            <h2 className="font-serif text-5xl md:text-6xl max-w-3xl">
+              Six case studies. Each one a different fight worth picking.
+            </h2>
           </div>
           <p className="hidden md:block text-sm text-muted-foreground max-w-xs">
             Each one opens with a 60-second TL;DR. Read deeper if the problem grabs you.
@@ -155,13 +248,21 @@ function Home() {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/30" />
                       <div className="absolute top-0 inset-x-0 p-5 md:p-8 flex items-center justify-between text-white">
-                        <span className="text-[10px] md:text-xs uppercase tracking-widest opacity-90">{p.role}</span>
-                        <span className="text-[10px] md:text-xs uppercase tracking-widest opacity-90 text-right">{p.year} · {p.status}</span>
+                        <span className="text-[10px] md:text-xs uppercase tracking-widest opacity-90">
+                          {p.role}
+                        </span>
+                        <span className="text-[10px] md:text-xs uppercase tracking-widest opacity-90 text-right">
+                          {p.year} · {p.status}
+                        </span>
                       </div>
                     </div>
                     <div className="p-5 md:p-8">
-                      <h3 className="font-serif text-2xl sm:text-3xl md:text-5xl leading-tight mb-2 md:mb-3">{p.title}</h3>
-                      <p className="text-sm md:text-lg text-muted-foreground leading-snug max-w-xl">{p.kicker}</p>
+                      <h3 className="font-serif text-2xl sm:text-3xl md:text-5xl leading-tight mb-2 md:mb-3">
+                        {p.title}
+                      </h3>
+                      <p className="text-sm md:text-lg text-muted-foreground leading-snug max-w-xl">
+                        {p.kicker}
+                      </p>
                       <div className="mt-4 md:mt-6 flex items-center gap-2 text-sm text-foreground/80 group-hover:text-accent group-hover:gap-3 transition-all">
                         Read the case <span>→</span>
                       </div>
@@ -177,11 +278,19 @@ function Home() {
       {/* PROCESS PROMO */}
       <section className="border-y border-border bg-secondary/50">
         <div className="mx-auto max-w-6xl px-6 py-20 grid md:grid-cols-12 gap-8 items-center">
-          <p className="md:col-span-2 text-xs uppercase tracking-widest text-muted-foreground">How I work</p>
+          <p className="md:col-span-2 text-xs uppercase tracking-widest text-muted-foreground">
+            How I work
+          </p>
           <h2 className="md:col-span-8 font-serif text-3xl md:text-5xl leading-tight">
-            Final pixels are the easy part. The work is in the <em className="text-accent">conversations that changed the brief.</em>
+            Final pixels are the easy part. The work is in the{" "}
+            <em className="text-accent">conversations that changed the brief.</em>
           </h2>
-          <Link to="/process" className="md:col-span-2 text-sm underline underline-offset-4 decoration-accent hover:text-accent">Read my process →</Link>
+          <Link
+            to="/process"
+            className="md:col-span-2 text-sm underline underline-offset-4 decoration-accent hover:text-accent"
+          >
+            Read my process →
+          </Link>
         </div>
       </section>
 
@@ -208,7 +317,9 @@ function Home() {
       {/* RECOMMENDATIONS */}
       <section className="border-t border-border">
         <div className="mx-auto max-w-6xl px-6 py-24">
-          <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">What collaborators say</p>
+          <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">
+            What collaborators say
+          </p>
           <h2 className="font-serif text-5xl md:text-6xl mb-12">Receipts, not testimonials.</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {recommendations.map((r) => (
@@ -226,18 +337,29 @@ function Home() {
 
       {/* EXPERIENCE */}
       <section className="mx-auto max-w-6xl px-6 py-24">
-        <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">Where I've worked</p>
+        <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">
+          Where I've worked
+        </p>
         <h2 className="font-serif text-5xl md:text-6xl mb-12">Experience.</h2>
         <div className="divide-y divide-border border-y border-border">
           {experience.map((e) => (
-            <div key={e.role + e.company} className="grid md:grid-cols-12 gap-4 py-8 items-baseline">
-              <div className="md:col-span-2 text-sm text-muted-foreground tabular-nums">{e.years}</div>
+            <div
+              key={e.role + e.company}
+              className="grid md:grid-cols-12 gap-4 py-8 items-baseline"
+            >
+              <div className="md:col-span-2 text-sm text-muted-foreground tabular-nums">
+                {e.years}
+              </div>
               <div className="md:col-span-4">
                 <div className="font-serif text-2xl">{e.company}</div>
                 <div className="text-sm text-muted-foreground">{e.location}</div>
               </div>
               <div className="md:col-span-2 text-sm">{e.role}</div>
-              {e.note && <p className="md:col-span-4 text-sm text-muted-foreground leading-relaxed">{e.note}</p>}
+              {e.note && (
+                <p className="md:col-span-4 text-sm text-muted-foreground leading-relaxed">
+                  {e.note}
+                </p>
+              )}
             </div>
           ))}
         </div>

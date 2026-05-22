@@ -6,9 +6,17 @@ export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Contact, Kaushik Patil, UX & Product Designer" },
-      { name: "description", content: "Get in touch about full-time roles, freelance work, or a quick design conversation." },
+      {
+        name: "description",
+        content:
+          "Get in touch about full-time roles, freelance work, or a quick design conversation.",
+      },
       { property: "og:title", content: "Contact, Kaushik Patil" },
-      { property: "og:description", content: "Get in touch about full-time roles, freelance work, or a quick design conversation." },
+      {
+        property: "og:description",
+        content:
+          "Get in touch about full-time roles, freelance work, or a quick design conversation.",
+      },
     ],
   }),
   component: ContactPage,
@@ -49,12 +57,15 @@ function ContactPage() {
 
       {/* Hero */}
       <section className="mx-auto max-w-5xl px-6 pt-24 pb-12">
-        <p className="text-xs uppercase tracking-widest text-muted-foreground">Contact · Open to roles & collaborations</p>
+        <p className="text-xs uppercase tracking-widest text-muted-foreground">
+          Contact · Open to roles & collaborations
+        </p>
         <h1 className="mt-6 font-serif text-5xl md:text-7xl leading-[0.95]">
           Let's make something worth opening twice.
         </h1>
         <p className="mt-8 text-xl md:text-2xl text-muted-foreground max-w-2xl leading-snug">
-          I reply to every honest message, usually within a day. Pitch a problem, send a brief, or just say hi.
+          I reply to every honest message, usually within a day. Pitch a problem, send a brief, or
+          just say hi.
         </p>
       </section>
 
@@ -87,19 +98,26 @@ function ContactPage() {
       <section className="mx-auto max-w-5xl px-6 py-16 border-t border-border">
         <div className="grid md:grid-cols-3 gap-10">
           <div>
-            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">Right now</p>
+            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">
+              Right now
+            </p>
             <p className="font-serif text-2xl leading-snug">
               Open to full-time Product / UX Design roles, preferably 0→1, SaaS, or AI-adjacent.
             </p>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">Freelance</p>
+            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">
+              Freelance
+            </p>
             <p className="font-serif text-2xl leading-snug">
-              Selective. Two engagements at a time, scoped in 2-week sprints with a clear deliverable.
+              Selective. Two engagements at a time, scoped in 2-week sprints with a clear
+              deliverable.
             </p>
           </div>
           <div>
-            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">Just curious</p>
+            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">
+              Just curious
+            </p>
             <p className="font-serif text-2xl leading-snug">
               Happy to share notes on enterprise UX, dashboard design, or AI-UX. No agenda needed.
             </p>
@@ -111,12 +129,17 @@ function ContactPage() {
       <section className="mx-auto max-w-3xl px-6 py-24 text-center">
         <p className="font-serif text-3xl md:text-4xl leading-snug">
           The fastest way to me is{" "}
-          <a href="mailto:workkwithkaushik@gmail.com" className="text-accent underline underline-offset-4">
+          <a
+            href="mailto:workkwithkaushik@gmail.com"
+            className="text-accent underline underline-offset-4"
+          >
             one honest email
           </a>
           . Tell me the problem, I'll tell you if I'm the right designer for it.
         </p>
-        <p className="mt-6 text-sm text-muted-foreground">Pune, India · Working IST, flexible across time zones</p>
+        <p className="mt-6 text-sm text-muted-foreground">
+          Pune, India · Working IST, flexible across time zones
+        </p>
       </section>
 
       <SiteFooter />

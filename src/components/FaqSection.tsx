@@ -80,10 +80,13 @@ export function FaqSection() {
         <div className="md:col-span-4">
           <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">FAQs</p>
           <h2 className="font-serif text-5xl md:text-6xl leading-[1] mb-6">
-            Asked <em className="text-accent">often,</em><br />answered honestly.
+            Asked <em className="text-accent">often,</em>
+            <br />
+            answered honestly.
           </h2>
           <p className="text-muted-foreground leading-relaxed max-w-xs">
-            The questions that show up in every intro call. If yours isn't here, the contact page is one scroll away.
+            The questions that show up in every intro call. If yours isn't here, the contact page is
+            one scroll away.
           </p>
         </div>
         <div className="md:col-span-8">

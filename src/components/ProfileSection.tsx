@@ -6,10 +6,26 @@ import annotated from "@/assets/portrait-annotated.png";
 import candid from "@/assets/portrait-candid.jpg";
 
 const loves = [
-  { k: "01", t: "Re-framing briefs", d: "The first week is for finding the load-bearing assumption nobody named." },
-  { k: "02", t: "Watching people use things", d: "Six messy interviews beat a six-hundred-person survey, every time." },
-  { k: "03", t: "Designing for the floor", d: "Operators on a phone, one-handed, mid-rush. That's the real user." },
-  { k: "04", t: "Writing things down", d: "If it isn't a doc, it isn't a decision. Postmortems get shared, not buried." },
+  {
+    k: "01",
+    t: "Re-framing briefs",
+    d: "The first week is for finding the load-bearing assumption nobody named.",
+  },
+  {
+    k: "02",
+    t: "Watching people use things",
+    d: "Six messy interviews beat a six-hundred-person survey, every time.",
+  },
+  {
+    k: "03",
+    t: "Designing for the floor",
+    d: "Operators on a phone, one-handed, mid-rush. That's the real user.",
+  },
+  {
+    k: "04",
+    t: "Writing things down",
+    d: "If it isn't a doc, it isn't a decision. Postmortems get shared, not buried.",
+  },
 ];
 
 export function ProfileSection() {
@@ -21,7 +37,11 @@ export function ProfileSection() {
   const rotB = useTransform(scrollYProgress, [0, 1], [5, -3]);
 
   return (
-    <section ref={ref} id="profile" className="relative border-y border-border bg-secondary/30 overflow-hidden">
+    <section
+      ref={ref}
+      id="profile"
+      className="relative border-y border-border bg-secondary/30 overflow-hidden"
+    >
       <div className="mx-auto max-w-6xl px-6 py-20 md:py-28 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
         {/* Photo collage */}
         <div className="lg:col-span-6 relative h-[420px] sm:h-[560px] md:h-[640px]">
@@ -31,7 +51,11 @@ export function ProfileSection() {
             className="absolute top-0 left-0 w-[68%] aspect-[3/4] rounded-3xl overflow-hidden shadow-[0_30px_80px_-30px_rgba(0,0,0,0.45)] ring-1 ring-border z-10"
           >
             <Tilt3D max={6} className="h-full w-full rounded-3xl overflow-hidden">
-              <img src={annotated} alt="Kaushik with hand-drawn design principles around him" className="h-full w-full object-cover" />
+              <img
+                src={annotated}
+                alt="Kaushik with hand-drawn design principles around him"
+                className="h-full w-full object-cover"
+              />
             </Tilt3D>
           </motion.div>
 
@@ -55,9 +79,15 @@ export function ProfileSection() {
           >
             <Tilt3D max={10} className="rounded-2xl">
               <div className="bg-paper px-4 py-3 sm:px-6 sm:py-5 rounded-2xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.45)] ring-1 ring-border">
-                <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-muted-foreground mb-0.5 sm:mb-1">Signed,</p>
-                <p className="font-serif italic text-2xl sm:text-3xl text-foreground leading-none">Kaushik.</p>
-                <p className="text-[10px] sm:text-xs text-muted-foreground mt-1 sm:mt-2">Pune, IN · est. 2024</p>
+                <p className="text-[9px] sm:text-[10px] uppercase tracking-[0.25em] text-muted-foreground mb-0.5 sm:mb-1">
+                  Signed,
+                </p>
+                <p className="font-serif italic text-2xl sm:text-3xl text-foreground leading-none">
+                  Kaushik.
+                </p>
+                <p className="text-[10px] sm:text-xs text-muted-foreground mt-1 sm:mt-2">
+                  Pune, IN · est. 2024
+                </p>
               </div>
             </Tilt3D>
           </motion.div>
@@ -75,21 +105,28 @@ export function ProfileSection() {
         {/* Copy */}
         <div className="lg:col-span-6">
           <Reveal>
-            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-4">The person behind the pixels</p>
+            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-4">
+              The person behind the pixels
+            </p>
           </Reveal>
           <Reveal delay={0.05}>
             <h2 className="font-serif text-5xl md:text-6xl leading-[1.02] mb-8">
-              I design like I argue, <em className="text-accent">curious first,</em> opinionated second.
+              I design like I argue, <em className="text-accent">curious first,</em> opinionated
+              second.
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
             <p className="text-lg text-foreground/85 leading-relaxed mb-6">
-              I'm a product designer based in Pune. I spend my days turning dense systems into calm, decision-first interfaces, dashboards, workflows, AI surfaces, the kind of software that has to work on a Tuesday at 4pm when nothing else does.
+              I'm a product designer based in Pune. I spend my days turning dense systems into calm,
+              decision-first interfaces, dashboards, workflows, AI surfaces, the kind of software
+              that has to work on a Tuesday at 4pm when nothing else does.
             </p>
           </Reveal>
           <Reveal delay={0.15}>
             <p className="text-lg text-foreground/85 leading-relaxed mb-10">
-              Off the canvas: long-form writing, slow coffee, and a quiet obsession with how supermarkets lay out their aisles. I'll happily redraw a flow on a napkin. I care a lot about typography. I think hand-off is a conversation, not a Zip file.
+              Off the canvas: long-form writing, slow coffee, and a quiet obsession with how
+              supermarkets lay out their aisles. I'll happily redraw a flow on a napkin. I care a
+              lot about typography. I think hand-off is a conversation, not a Zip file.
             </p>
           </Reveal>
 

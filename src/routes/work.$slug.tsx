@@ -24,7 +24,9 @@ export const Route = createFileRoute("/work/$slug")({
     <div className="min-h-screen grid place-items-center">
       <div className="text-center">
         <p className="font-serif text-5xl mb-4">Case not found.</p>
-        <Link to="/" className="underline decoration-accent">Back to work</Link>
+        <Link to="/" className="underline decoration-accent">
+          Back to work
+        </Link>
       </div>
     </div>
   ),
@@ -40,10 +42,16 @@ function CaseStudy() {
 
       {/* Title block */}
       <section className="mx-auto max-w-5xl px-6 pt-20 pb-12">
-        <Link to="/" className="text-sm text-muted-foreground hover:text-accent">← All work</Link>
-        <p className="mt-10 text-xs uppercase tracking-widest text-muted-foreground">{project.tags.join(" · ")}</p>
+        <Link to="/" className="text-sm text-muted-foreground hover:text-accent">
+          ← All work
+        </Link>
+        <p className="mt-10 text-xs uppercase tracking-widest text-muted-foreground">
+          {project.tags.join(" · ")}
+        </p>
         <h1 className="mt-4 font-serif text-5xl md:text-7xl leading-[0.95]">{project.title}</h1>
-        <p className="mt-6 text-xl md:text-2xl text-muted-foreground max-w-3xl leading-snug">{project.kicker}</p>
+        <p className="mt-6 text-xl md:text-2xl text-muted-foreground max-w-3xl leading-snug">
+          {project.kicker}
+        </p>
         {project.liveUrl && (
           <a
             href={project.liveUrl}
@@ -79,7 +87,9 @@ function CaseStudy() {
       <section className="mx-auto max-w-5xl px-6 mt-16">
         <div className="rounded-3xl border-2 border-foreground bg-card p-8 md:p-10">
           <div className="flex items-center gap-3 mb-6">
-            <span className="px-2.5 py-1 rounded-full bg-accent text-accent-foreground text-xs uppercase tracking-widest font-medium">TL;DR</span>
+            <span className="px-2.5 py-1 rounded-full bg-accent text-accent-foreground text-xs uppercase tracking-widest font-medium">
+              TL;DR
+            </span>
             <span className="text-xs text-muted-foreground">For the 90-second skim</span>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
@@ -96,7 +106,14 @@ function CaseStudy() {
       ) : (
         <section className="mx-auto max-w-3xl px-6 py-24 text-center">
           <p className="font-serif text-3xl leading-snug">
-            Full write-up coming. Want the deck early? <a href="mailto:workkwithkaushik@gmail.com" className="text-accent underline underline-offset-4">Email me</a> and I'll walk you through it.
+            Full write-up coming. Want the deck early?{" "}
+            <a
+              href="mailto:workkwithkaushik@gmail.com"
+              className="text-accent underline underline-offset-4"
+            >
+              Email me
+            </a>{" "}
+            and I'll walk you through it.
           </p>
         </section>
       )}
@@ -106,13 +123,27 @@ function CaseStudy() {
         <h2 className="font-serif text-4xl md:text-5xl mb-10">Keep reading</h2>
         <div className="grid md:grid-cols-2 gap-6">
           {others.map((p) => (
-            <Link key={p.slug} to="/work/$slug" params={{ slug: p.slug }} className="group rounded-3xl overflow-hidden border border-border hover:border-foreground transition-colors bg-card">
+            <Link
+              key={p.slug}
+              to="/work/$slug"
+              params={{ slug: p.slug }}
+              className="group rounded-3xl overflow-hidden border border-border hover:border-foreground transition-colors bg-card"
+            >
               <div className="aspect-[16/10] overflow-hidden">
-                <img src={p.cover} alt={`${p.title} cover`} loading="lazy" width={1600} height={900} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
+                <img
+                  src={p.cover}
+                  alt={`${p.title} cover`}
+                  loading="lazy"
+                  width={1600}
+                  height={900}
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                />
               </div>
               <div className="p-6">
                 <p className="text-xs uppercase tracking-widest text-muted-foreground">{p.role}</p>
-                <h3 className="font-serif text-3xl mt-1 group-hover:text-accent transition-colors">{p.title}</h3>
+                <h3 className="font-serif text-3xl mt-1 group-hover:text-accent transition-colors">
+                  {p.title}
+                </h3>
                 <p className="text-sm text-muted-foreground mt-2">{p.kicker}</p>
               </div>
             </Link>
@@ -138,7 +169,9 @@ function TldrCell({ label, body, accent }: { label: string; body: string; accent
   return (
     <div>
       <p className="text-xs uppercase tracking-widest text-muted-foreground mb-2">{label}</p>
-      <p className={`leading-snug ${accent ? "font-serif text-2xl text-accent" : "text-base"}`}>{body}</p>
+      <p className={`leading-snug ${accent ? "font-serif text-2xl text-accent" : "text-base"}`}>
+        {body}
+      </p>
     </div>
   );
 }
@@ -186,7 +219,8 @@ function FullArc({ project }: { project: ReturnType<typeof getProject> & {} }) {
       },
       {
         kicker: "02 · The insight that broke the brief",
-        title: "Streaks don't work because people are competitive. They work because they tell a story.",
+        title:
+          "Streaks don't work because people are competitive. They work because they tell a story.",
         body: "Half the team wanted Duolingo-style streaks. I pushed back: streaks built on punishment (lose the streak, feel bad) drive churn after the first slip. We mapped a different model, streaks as narrative chapters. Miss a day and the app doesn't shame you, it asks 'what happened?' and folds it into the story.",
         pull: "I killed the leaderboard feature in week three. It tested 4.1/5 in surveys and 2.2/5 in actual use.",
       },
@@ -211,7 +245,8 @@ function FullArc({ project }: { project: ReturnType<typeof getProject> & {} }) {
     "aroma-labs": [
       {
         kicker: "01 · The tension",
-        title: "The owner knew every customer's name. He had no idea what his Tuesday inventory was.",
+        title:
+          "The owner knew every customer's name. He had no idea what his Tuesday inventory was.",
         body: "The Aroma Labs runs a multi-outlet F&B brand built on warmth, hand-rolled recipes, regulars, vibe. But behind the counter the system was WhatsApp groups, three spreadsheets, and an end-of-day call to count milk cartons. Scaling past four outlets was breaking the thing that made it special.",
         pull: "The founders weren't asking for software. They were asking to get their Sundays back.",
       },
