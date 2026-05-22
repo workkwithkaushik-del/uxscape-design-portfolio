@@ -1,0 +1,251 @@
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { SiteHeader } from "@/components/SiteHeader";
+import { SiteFooter } from "@/components/SiteFooter";
+import { projects } from "@/lib/projects";
+import { ProfileSection } from "@/components/ProfileSection";
+import { FaqSection } from "@/components/FaqSection";
+import { Tilt3D } from "@/components/Tilt3D";
+import { ScrollFlipCard, Reveal } from "@/components/ScrollReveal";
+import { motion } from "framer-motion";
+import headshot from "@/assets/portrait-headshot.png";
+
+export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Kaushik Patil, Product Designer who ships outcomes, not screens" },
+      { name: "description", content: "I design scalable, human-centred experiences that move retention, adoption, and trust. SaaS, consumer, and AI workflows." },
+      { property: "og:title", content: "Kaushik Patil, Product Designer" },
+      { property: "og:description", content: "Portfolio of case studies showing the messy middle: problem inherited, assumption challenged, decision shipped." },
+    ],
+  }),
+  component: Home,
+});
+
+const skills = {
+  "UX Research": ["User Interviews", "Survey Design", "Heuristic Analysis", "Persona Building", "Journey Mapping", "Usability Testing", "A/B Testing", "Feedback Synthesis"],
+  "Product Design": ["Wireframing", "User Flows", "High-Fidelity UI", "Interactive Prototyping", "Design Systems", "Accessibility", "Dashboard Design", "Data Viz"],
+  "AI / UX": ["Prompt Engineering", "Human-in-the-Loop", "Trust, Ethics & Bias", "Explainable AI", "Conversational UX", "Error Recovery", "AI Workflow Automation"],
+  "Craft & Tools": ["Figma", "FigJam", "Cursor", "ChatGPT", "Power BI", "HTML/CSS", "Basic JS", "GitHub"],
+};
+
+const recommendations = [
+  {
+    name: "Sagar Darekar",
+    role: "Customer Success, iMocha",
+    quote: "Kaushik possesses a remarkable ability to deeply understand complex client problems. He consistently went beyond surface-level requirements, delving into the core challenges users faced. His wireframes were not just visually clear, but also functionally robust, an excellent foundation for design and development.",
+  },
+  {
+    name: "Tushar Pawar",
+    role: "UX Design Lead, iMocha",
+    quote: "Kaushik brings a rare mix of curiosity, technical aptitude, and user-centered thinking. He owned end-to-end UX for key microsites, contributed to AI-UX guidelines, built a custom Figma plugin to streamline UX writing, and designed scalable dashboards in Power BI.",
+  },
+  {
+    name: "Amit Mohod",
+    role: "Product Manager, iMocha",
+    quote: "Pragmatic, fast, opinionated in the way you want a designer to be. Made my PRDs sharper just by asking questions.",
+  },
+];
+
+const experience = [
+  { role: "UI/UX & Application Designer", company: "Reval Analytical Services", location: "India", years: "2025, Now", note: "Designing analytical applications and dashboards for finance and research workflows. Bridging dense data with calm, decision-first interfaces." },
+  { role: "UX Design Intern", company: "iMocha", location: "Pune, MH", years: "2024", note: "Enterprise skill-assessment SaaS. Owned end-to-end UX for microsites, contributed to internal AI-UX guidelines, shipped a custom Figma plugin for UX writing, and designed Power BI dashboards." },
+];
+
+function Home() {
+  return (
+    <div className="min-h-screen">
+      <SiteHeader />
+
+      {/* HERO */}
+      <section className="mx-auto max-w-6xl px-6 pt-20 pb-28 relative">
+        <div className="flex items-center gap-3 text-xs uppercase tracking-widest text-muted-foreground mb-10">
+          <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
+          Open to product design roles · Pune / remote
+        </div>
+        <div className="grid md:grid-cols-12 gap-10 items-start">
+          <div className="md:col-span-9">
+            <h1 className="font-serif text-[clamp(2.75rem,8vw,7rem)] leading-[0.95] tracking-tight">
+              I design products that earn the <em className="text-accent">second session,</em>{" "}
+              not just the install.
+            </h1>
+          </div>
+          {/* Floating portrait, parallax on hover, gentle float */}
+          <motion.div
+            initial={{ opacity: 0, y: 30, rotate: 6 }}
+            animate={{ opacity: 1, y: 0, rotate: 4 }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+            className="md:col-span-3 justify-self-end hidden md:block"
+          >
+            <motion.div animate={{ y: [0, -10, 0] }} transition={{ repeat: Infinity, duration: 7, ease: "easeInOut" }}>
+              <Tilt3D max={14} className="rounded-2xl">
+                <div className="bg-paper p-2.5 pb-8 rounded-2xl shadow-[0_30px_70px_-20px_rgba(0,0,0,0.45)] ring-1 ring-border w-44">
+                  <img src={headshot} alt="Kaushik Patil" className="w-full aspect-[4/5] object-cover rounded-lg" />
+                  <p className="text-center font-serif italic text-xs text-foreground/70 pt-2">Kaushik · designer</p>
+                </div>
+              </Tilt3D>
+            </motion.div>
+          </motion.div>
+        </div>
+        <div className="mt-12 grid md:grid-cols-12 gap-8 items-end">
+          <p className="md:col-span-7 text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl">
+            I'm <span className="text-foreground">Kaushik Patil</span>, a product designer with 1+ year shipping enterprise SaaS platforms, dashboards, and workflow systems. I lead with the problem I inherited, the assumption I challenged, and the metric that moved because of it.
+          </p>
+          <div className="md:col-span-5 flex flex-wrap gap-3 md:justify-end">
+            <a href="#work" className="px-5 py-3 rounded-full bg-foreground text-background text-sm hover:bg-accent transition-colors">See the work →</a>
+            <Link to="/contact" className="px-5 py-3 rounded-full border border-border text-sm hover:border-foreground transition-colors">Hire me</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* MARQUEE */}
+      <div className="border-y border-border bg-foreground text-background overflow-hidden py-5">
+        <div className="marquee whitespace-nowrap font-serif text-2xl md:text-3xl flex">
+          {Array.from({ length: 2 }).map((_, i) => (
+            <span key={i} className="flex shrink-0">
+              {["Research-led", "0→1", "Design systems", "AI/UX", "Behavioral design", "B2B SaaS", "Consumer", "Data viz"].map((w) => (
+                <span key={w} className="px-8 flex items-center gap-8">
+                  {w} <span className="text-accent">✦</span>
+                </span>
+              ))}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* PROFILE, who I am, what I love */}
+      <ProfileSection />
+
+      {/* WORK */}
+      <section id="work" className="mx-auto max-w-6xl px-6 py-24">
+        <div className="flex items-end justify-between mb-12">
+          <div>
+            <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">Selected work · 2024–26</p>
+            <h2 className="font-serif text-5xl md:text-6xl max-w-3xl">Six case studies. Each one a different fight worth picking.</h2>
+          </div>
+          <p className="hidden md:block text-sm text-muted-foreground max-w-xs">
+            Each one opens with a 60-second TL;DR. Read deeper if the problem grabs you.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-5 md:gap-6 [perspective:1400px]">
+          {projects.map((p, i) => (
+            <ScrollFlipCard
+              key={p.slug}
+              axis={i % 2 === 0 ? "x" : "y"}
+              strength={i === 0 ? 8 : 12}
+              className={i === 0 ? "md:col-span-2" : ""}
+            >
+              <Reveal y={40} delay={i * 0.04}>
+                <Tilt3D max={6} className="rounded-3xl h-full">
+                  <Link
+                    to="/work/$slug"
+                    params={{ slug: p.slug }}
+                    className="group relative overflow-hidden rounded-3xl border border-border hover:border-foreground transition-all bg-card flex flex-col h-full"
+                  >
+                    <div
+                      className={`relative ${i === 0 ? "aspect-[16/9] md:aspect-[2.2/1]" : "aspect-[16/10] md:aspect-[4/3]"} overflow-hidden`}
+                    >
+                      <img
+                        src={p.cover}
+                        alt={`${p.title} cover`}
+                        loading="lazy"
+                        width={1600}
+                        height={900}
+                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/30" />
+                      <div className="absolute top-0 inset-x-0 p-5 md:p-8 flex items-center justify-between text-white">
+                        <span className="text-[10px] md:text-xs uppercase tracking-widest opacity-90">{p.role}</span>
+                        <span className="text-[10px] md:text-xs uppercase tracking-widest opacity-90 text-right">{p.year} · {p.status}</span>
+                      </div>
+                    </div>
+                    <div className="p-5 md:p-8">
+                      <h3 className="font-serif text-2xl sm:text-3xl md:text-5xl leading-tight mb-2 md:mb-3">{p.title}</h3>
+                      <p className="text-sm md:text-lg text-muted-foreground leading-snug max-w-xl">{p.kicker}</p>
+                      <div className="mt-4 md:mt-6 flex items-center gap-2 text-sm text-foreground/80 group-hover:text-accent group-hover:gap-3 transition-all">
+                        Read the case <span>→</span>
+                      </div>
+                    </div>
+                  </Link>
+                </Tilt3D>
+              </Reveal>
+            </ScrollFlipCard>
+          ))}
+        </div>
+      </section>
+
+      {/* PROCESS PROMO */}
+      <section className="border-y border-border bg-secondary/50">
+        <div className="mx-auto max-w-6xl px-6 py-20 grid md:grid-cols-12 gap-8 items-center">
+          <p className="md:col-span-2 text-xs uppercase tracking-widest text-muted-foreground">How I work</p>
+          <h2 className="md:col-span-8 font-serif text-3xl md:text-5xl leading-tight">
+            Final pixels are the easy part. The work is in the <em className="text-accent">conversations that changed the brief.</em>
+          </h2>
+          <Link to="/process" className="md:col-span-2 text-sm underline underline-offset-4 decoration-accent hover:text-accent">Read my process →</Link>
+        </div>
+      </section>
+
+      {/* SKILLS */}
+      <section className="mx-auto max-w-6xl px-6 py-24">
+        <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">The toolkit</p>
+        <h2 className="font-serif text-5xl md:text-6xl mb-12">Skills, not buzzwords.</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+          {Object.entries(skills).map(([group, items]) => (
+            <div key={group}>
+              <h3 className="font-serif text-2xl mb-5 pb-3 border-b border-border">{group}</h3>
+              <ul className="space-y-2.5 text-sm text-muted-foreground">
+                {items.map((s) => (
+                  <li key={s} className="flex items-baseline gap-2">
+                    <span className="text-accent text-[10px]">▸</span> {s}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* RECOMMENDATIONS */}
+      <section className="border-t border-border">
+        <div className="mx-auto max-w-6xl px-6 py-24">
+          <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">What collaborators say</p>
+          <h2 className="font-serif text-5xl md:text-6xl mb-12">Receipts, not testimonials.</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {recommendations.map((r) => (
+              <figure key={r.name} className="bg-card rounded-2xl p-8 border border-border">
+                <blockquote className="font-serif text-2xl leading-snug">"{r.quote}"</blockquote>
+                <figcaption className="mt-6 pt-6 border-t border-border text-sm">
+                  <div className="font-medium">{r.name}</div>
+                  <div className="text-muted-foreground">{r.role}</div>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* EXPERIENCE */}
+      <section className="mx-auto max-w-6xl px-6 py-24">
+        <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">Where I've worked</p>
+        <h2 className="font-serif text-5xl md:text-6xl mb-12">Experience.</h2>
+        <div className="divide-y divide-border border-y border-border">
+          {experience.map((e) => (
+            <div key={e.role + e.company} className="grid md:grid-cols-12 gap-4 py-8 items-baseline">
+              <div className="md:col-span-2 text-sm text-muted-foreground tabular-nums">{e.years}</div>
+              <div className="md:col-span-4">
+                <div className="font-serif text-2xl">{e.company}</div>
+                <div className="text-sm text-muted-foreground">{e.location}</div>
+              </div>
+              <div className="md:col-span-2 text-sm">{e.role}</div>
+              {e.note && <p className="md:col-span-4 text-sm text-muted-foreground leading-relaxed">{e.note}</p>}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <FaqSection />
+
+      <SiteFooter />
+    </div>
+  );
+}
