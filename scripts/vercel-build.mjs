@@ -94,7 +94,7 @@ export default async function handler(request) {
   return server.fetch(request, {}, {});
 }
 `;
-writeFileSync(join(FUNC, "index.mjs"), wrapperCode.trim() + "\\n");
+writeFileSync(join(FUNC, "index.mjs"), wrapperCode.trim() + "\n");
 console.log("   ✔ Wrote index.mjs (Node.js serverless handler)");
 
 // ── 8. Write .vc-config.json for the function ───────────────────────
@@ -104,7 +104,7 @@ const vcConfig = {
   launcherType: "Nodejs",
   supportsResponseStreaming: true,
 };
-writeFileSync(join(FUNC, ".vc-config.json"), JSON.stringify(vcConfig, null, 2) + "\\n");
+writeFileSync(join(FUNC, ".vc-config.json"), JSON.stringify(vcConfig, null, 2) + "\n");
 console.log("   ✔ Wrote .vc-config.json (nodejs22.x)");
 
 // ── 9. Build the routing config ─────────────────────────────────────
@@ -120,7 +120,7 @@ const routingConfig = {
   ],
 };
 
-writeFileSync(join(OUT, "config.json"), JSON.stringify(routingConfig, null, 2) + "\\n");
+writeFileSync(join(OUT, "config.json"), JSON.stringify(routingConfig, null, 2) + "\n");
 console.log("   ✔ Wrote config.json (routing)");
 
-console.log("\\n✅ .vercel/output ready for deployment!\\n");
+console.log("\n✅ .vercel/output ready for deployment!\n");
