@@ -9,6 +9,7 @@ import { Tilt3D } from "@/components/Tilt3D";
 import { ScrollFlipCard, Reveal } from "@/components/ScrollReveal";
 import { motion } from "framer-motion";
 import headshot from "@/assets/portrait-headshot.png";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -78,18 +79,27 @@ const recommendations = [
     role: "Customer Success, iMocha",
     quote:
       "Kaushik possesses a remarkable ability to deeply understand complex client problems. He consistently went beyond surface-level requirements, delving into the core challenges users faced. His wireframes were not just visually clear, but also functionally robust, an excellent foundation for design and development.",
+    linkedin: "https://www.linkedin.com/in/darekar-sagar/",
+    initials: "SD",
+    gradient: "from-emerald-500 to-teal-500",
   },
   {
     name: "Tushar Pawar",
     role: "UX Design Lead, iMocha",
     quote:
       "Kaushik brings a rare mix of curiosity, technical aptitude, and user-centered thinking. He owned end-to-end UX for key microsites, contributed to AI-UX guidelines, built a custom Figma plugin to streamline UX writing, and designed scalable dashboards in Power BI.",
+    linkedin: "https://www.linkedin.com/in/tspawar/",
+    initials: "TP",
+    gradient: "from-indigo-500 to-purple-500",
   },
   {
     name: "Amit Mohod",
     role: "Product Manager, iMocha",
     quote:
       "Pragmatic, fast, opinionated in the way you want a designer to be. Made my PRDs sharper just by asking questions.",
+    linkedin: "https://www.linkedin.com/in/amitmohod/",
+    initials: "AM",
+    gradient: "from-orange-500 to-amber-500",
   },
 ];
 
@@ -306,7 +316,7 @@ function Home() {
       </section>
 
       {/* PROCESS PROMO */}
-      <section className="border-y border-border bg-secondary/50">
+      <section className="relative z-10 border-y border-border bg-secondary/50">
         <div className="mx-auto max-w-6xl px-6 py-20 grid md:grid-cols-12 gap-8 items-center">
           <p className="md:col-span-2 text-xs uppercase tracking-widest text-muted-foreground">
             How I work
@@ -325,27 +335,29 @@ function Home() {
       </section>
 
       {/* SKILLS */}
-      <section className="mx-auto max-w-6xl px-6 py-24">
-        <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">The toolkit</p>
-        <h2 className="font-serif text-5xl md:text-6xl mb-12">Skills, not buzzwords.</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
-          {Object.entries(skills).map(([group, items]) => (
-            <div key={group}>
-              <h3 className="font-serif text-2xl mb-5 pb-3 border-b border-border">{group}</h3>
-              <ul className="space-y-2.5 text-sm text-muted-foreground">
-                {items.map((s) => (
-                  <li key={s} className="flex items-baseline gap-2">
-                    <span className="text-accent text-[10px]">▸</span> {s}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+      <section className="relative z-10 bg-background">
+        <div className="mx-auto max-w-6xl px-6 py-24">
+          <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">The toolkit</p>
+          <h2 className="font-serif text-5xl md:text-6xl mb-12">Skills, not buzzwords.</h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
+            {Object.entries(skills).map(([group, items]) => (
+              <div key={group}>
+                <h3 className="font-serif text-2xl mb-5 pb-3 border-b border-border">{group}</h3>
+                <ul className="space-y-2.5 text-sm text-muted-foreground">
+                  {items.map((s) => (
+                    <li key={s} className="flex items-baseline gap-2">
+                      <span className="text-accent text-[10px]">▸</span> {s}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* RECOMMENDATIONS */}
-      <section className="border-t border-border">
+      <section className="relative z-10 bg-background border-t border-border">
         <div className="mx-auto max-w-6xl px-6 py-24">
           <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">
             What collaborators say
@@ -353,11 +365,42 @@ function Home() {
           <h2 className="font-serif text-5xl md:text-6xl mb-12">Receipts, not testimonials.</h2>
           <div className="grid md:grid-cols-3 gap-8">
             {recommendations.map((r) => (
-              <figure key={r.name} className="bg-card rounded-2xl p-8 border border-border">
-                <blockquote className="font-serif text-2xl leading-snug">"{r.quote}"</blockquote>
-                <figcaption className="mt-6 pt-6 border-t border-border text-sm">
-                  <div className="font-medium">{r.name}</div>
-                  <div className="text-muted-foreground">{r.role}</div>
+              <figure
+                key={r.name}
+                className="bg-card rounded-2xl p-8 border border-border flex flex-col justify-between"
+              >
+                <blockquote className="font-serif text-2xl leading-snug mb-6">
+                  "{r.quote}"
+                </blockquote>
+                <figcaption className="mt-auto pt-6 border-t border-border flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <Avatar className="h-10 w-10 border border-border ring-2 ring-background">
+                      <AvatarFallback
+                        className={`bg-gradient-to-br ${r.gradient} text-white font-mono text-xs font-bold`}
+                      >
+                        {r.initials}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="text-sm">
+                      <div className="font-medium flex items-center gap-1.5">
+                        {r.name}
+                        {r.linkedin && (
+                          <a
+                            href={r.linkedin}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-muted-foreground hover:text-accent transition-colors"
+                            title={`${r.name}'s LinkedIn Profile`}
+                          >
+                            <svg className="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.779-1.75-1.75s.784-1.75 1.75-1.75 1.75.779 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                            </svg>
+                          </a>
+                        )}
+                      </div>
+                      <div className="text-xs text-muted-foreground">{r.role}</div>
+                    </div>
+                  </div>
                 </figcaption>
               </figure>
             ))}
@@ -366,34 +409,37 @@ function Home() {
       </section>
 
       {/* EXPERIENCE */}
-      <section className="mx-auto max-w-6xl px-6 py-24">
-        <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">
-          Where I've worked
-        </p>
-        <h2 className="font-serif text-5xl md:text-6xl mb-12">Experience.</h2>
-        <div className="divide-y divide-border border-y border-border">
-          {experience.map((e) => (
-            <div
-              key={e.role + e.company}
-              className="grid md:grid-cols-12 gap-4 py-8 items-baseline"
-            >
-              <div className="md:col-span-2 text-sm text-muted-foreground tabular-nums">
-                {e.years}
+      <section className="relative z-10 bg-background border-t border-border">
+        <div className="mx-auto max-w-6xl px-6 py-24">
+          <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">
+            Where I've worked
+          </p>
+          <h2 className="font-serif text-5xl md:text-6xl mb-12">Experience.</h2>
+          <div className="divide-y divide-border border-y border-border">
+            {experience.map((e) => (
+              <div
+                key={e.role + e.company}
+                className="grid md:grid-cols-12 gap-4 py-8 items-baseline"
+              >
+                <div className="md:col-span-2 text-sm text-muted-foreground tabular-nums">
+                  {e.years}
+                </div>
+                <div className="md:col-span-4">
+                  <div className="font-serif text-2xl">{e.company}</div>
+                  <div className="text-sm text-muted-foreground">{e.location}</div>
+                </div>
+                <div className="md:col-span-2 text-sm">{e.role}</div>
+                {e.note && (
+                  <p className="md:col-span-4 text-sm text-muted-foreground leading-relaxed">
+                    {e.note}
+                  </p>
+                )}
               </div>
-              <div className="md:col-span-4">
-                <div className="font-serif text-2xl">{e.company}</div>
-                <div className="text-sm text-muted-foreground">{e.location}</div>
-              </div>
-              <div className="md:col-span-2 text-sm">{e.role}</div>
-              {e.note && (
-                <p className="md:col-span-4 text-sm text-muted-foreground leading-relaxed">
-                  {e.note}
-                </p>
-              )}
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
+
 
       <FaqSection />
 
