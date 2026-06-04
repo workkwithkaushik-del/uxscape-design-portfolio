@@ -337,7 +337,9 @@ function Home() {
       {/* SKILLS */}
       <section className="relative z-10 bg-background">
         <div className="mx-auto max-w-6xl px-6 py-24">
-          <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">The toolkit</p>
+          <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">
+            The toolkit
+          </p>
           <h2 className="font-serif text-5xl md:text-6xl mb-12">Skills, not buzzwords.</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
             {Object.entries(skills).map(([group, items]) => (
@@ -439,7 +441,6 @@ function Home() {
           </div>
         </div>
       </section>
-
 
       <FaqSection />
 
