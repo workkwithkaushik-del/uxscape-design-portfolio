@@ -44,7 +44,7 @@ const channels = [
   {
     label: "Résumé",
     value: "Download PDF · one page",
-    href: "/Kaushik_Patil_Founding_Designer.pdf",
+    href: "/Kaushik_Patil_Product_Designer.pdf",
     download: true,
     note: "Roles, tools, and shipped work at a glance.",
   },

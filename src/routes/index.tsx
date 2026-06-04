@@ -17,7 +17,7 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "I design scalable, human-centred experiences that move retention, adoption, and trust. SaaS, consumer, and AI workflows.",
+          "Product designer shipping decision-first interfaces for SaaS, F&B, and fintech. Based in Pune, open to full-time roles.",
       },
       { property: "og:title", content: "Kaushik Patil, Product Designer" },
       {
@@ -95,10 +95,10 @@ const recommendations = [
 
 const experience = [
   {
-    role: "UI/UX & Application Designer",
+    role: "UI/UX Designer",
     company: "Reval Analytical Services",
     location: "India",
-    years: "2025, Now",
+    years: "2025 – Present",
     note: "Designing analytical applications and dashboards for finance and research workflows. Bridging dense data with calm, decision-first interfaces.",
   },
   {
@@ -113,7 +113,7 @@ const experience = [
 function Home() {
   const [selectedYear, setSelectedYear] = useState<string>("All");
 
-  const sortedProjects = [...projects].sort((a, b) => b.year.localeCompare(a.year));
+  const sortedProjects = [...projects];
   const filteredProjects = sortedProjects.filter(
     (p) => selectedYear === "All" || p.year === selectedYear,
   );
@@ -163,10 +163,10 @@ function Home() {
         </div>
         <div className="mt-12 grid md:grid-cols-12 gap-8 items-end">
           <p className="md:col-span-7 text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl">
-            I'm <span className="text-foreground">Kaushik Patil</span>, a product designer with 1+
-            year shipping enterprise SaaS platforms, dashboards, and workflow systems. I lead with
-            the problem I inherited, the assumption I challenged, and the metric that moved because
-            of it.
+            I'm <span className="text-foreground">Kaushik Patil</span>, a product designer based in
+            Pune. I've shipped ERP systems, consumer apps, and dashboards for F&B, fintech, and
+            enterprise clients. I lead with the problem I inherited, the assumption I challenged,
+            and what moved because of it.
           </p>
           <div className="md:col-span-5 flex flex-wrap gap-3 md:justify-end">
             <a

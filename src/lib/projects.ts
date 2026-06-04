@@ -13,7 +13,7 @@ export type Project = {
   kicker: string;
   year: string;
   role: string;
-  status: "Done" | "In progress" | "Coming soon";
+  status: string;
   tldr: { problem: string; solution: string; result: string };
   tags: string[];
   hero: string;
@@ -25,24 +25,26 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: "kitchen-iq",
-    title: "KitchenIQ",
+    slug: "aroma-labs",
+    title: "The Aroma Labs",
     kicker:
-      "A Bloomberg Terminal for India's cloud kitchens, real-time demand, price, and competitive intelligence built on Swiggy's live network.",
-    year: "2026",
-    role: "Founding Designer · 0→1 SaaS",
-    status: "Coming soon",
+      "A data-driven ERP + customer app for a multi-outlet F&B brand, cut ops friction and unlocked scalable growth.",
+    year: "2025",
+    role: "Product Designer · ERP + Consumer",
+    status: "Live",
     tldr: {
       problem:
-        "India's 18,000+ cloud kitchen operators decide what to cook, where to expand, and how to price using gut feel, and 60% fail inside 18 months.",
+        "A growing multi-outlet F&B brand was running ops on WhatsApp and spreadsheets, owners couldn't see what was happening across stores in real time.",
       solution:
-        "A real-time market-intelligence SaaS built on Swiggy's live restaurant, menu, and pricing APIs, three lenses: Demand, Price, Competitive.",
+        "A two-sided system: an ERP for ops + inventory + staff, and a consumer app for ordering and loyalty, sharing one design language and one source of truth.",
       result:
-        "In design now. Targeting 100 paying brands in Year 1 (₹6 Cr ARR) on a ₹1,800 Cr TAM.",
+        "Rolled out to all outlets. Owners moved from end-of-day WhatsApp updates to live cross-store inventory and revenue visibility. Manual ops reporting on WhatsApp: eliminated.",
     },
-    tags: ["B2B SaaS", "Data viz", "0→1", "In design"],
-    hero: "linear-gradient(135deg, oklch(0.32 0.05 145) 0%, oklch(0.55 0.14 155) 100%)",
-    cover: coverKitchenIq,
+    tags: ["ERP", "F&B", "0→1", "Two-sided"],
+    hero: "linear-gradient(135deg, oklch(0.92 0.05 60) 0%, oklch(0.68 0.13 30) 100%)",
+    cover: coverAroma,
+    liveUrl: "https://restaurant-dashboard-uxscape.vercel.app",
+    liveLabel: "View live dashboard",
     hasFullCase: true,
   },
   {
@@ -51,14 +53,15 @@ export const projects: Project[] = [
     kicker:
       "Turning messy student money habits into smart, social, goal-driven finance, designed for Gen Z, not at them.",
     year: "2023",
-    role: "Lead Product Designer · 0→1",
-    status: "Done",
+    role: "Product Designer · Concept · 0→1",
+    status: "Prototype",
     tldr: {
       problem:
         "Students were drowning in scattered UPI receipts, group-split chaos, and finance apps that spoke like accountants, 73% abandoned within two weeks.",
       solution:
         "A bold, social, goal-first money app where every screen reframes spending as a story you're writing with your friends, not a ledger you're auditing.",
-      result: "+62% day-7 retention vs. the leading incumbent in unmoderated tests.",
+      result:
+        "+62% D7 retention intent vs. leading incumbent in unmoderated prototype tests (n=24). Concept project — not a live product. The test drove the direction.",
     },
     tags: ["0→1", "Mobile", "Gen-Z", "Behavioral design"],
     hero: "linear-gradient(135deg, oklch(0.58 0.165 35) 0%, oklch(0.78 0.12 70) 100%)",
@@ -69,25 +72,21 @@ export const projects: Project[] = [
     hasFullCase: true,
   },
   {
-    slug: "aroma-labs",
-    title: "The Aroma Labs",
-    kicker:
-      "A data-driven ERP + customer app for a multi-outlet F&B brand, cut ops friction and unlocked scalable growth.",
-    year: "2025",
-    role: "Product Designer · ERP + Consumer",
+    slug: "loreal-dashboard",
+    title: "L'Oréal · PowerBI",
+    kicker: "Making a 40-tab marketing dashboard answer one question fast.",
+    year: "2024",
+    role: "UX for Data · Enterprise",
     status: "Done",
     tldr: {
-      problem:
-        "A growing multi-outlet F&B brand was running ops on WhatsApp and spreadsheets, owners couldn't see what was happening across stores in real time.",
+      problem: "The brand team opened the dashboard, got overwhelmed, and went back to Excel.",
       solution:
-        "A two-sided system: an ERP for ops + inventory + staff, and a consumer app for ordering and loyalty, sharing one design language and one source of truth.",
-      result: "Enabled real-time cross-outlet decisions; rolled out to all locations.",
+        "Reorganized around three jobs-to-be-done, hid everything else behind progressive disclosure.",
+      result: "Daily active users on the dashboard 3×'d over six weeks.",
     },
-    tags: ["ERP", "F&B", "0→1", "Two-sided"],
-    hero: "linear-gradient(135deg, oklch(0.92 0.05 60) 0%, oklch(0.68 0.13 30) 100%)",
-    cover: coverAroma,
-    liveUrl: "https://restaurant-dashboard-uxscape.vercel.app",
-    liveLabel: "View live dashboard",
+    tags: ["Data viz", "Dashboard"],
+    hero: "linear-gradient(135deg, oklch(0.32 0.09 350) 0%, oklch(0.55 0.13 25) 100%)",
+    cover: coverLoreal,
     hasFullCase: true,
   },
   {
@@ -95,7 +94,7 @@ export const projects: Project[] = [
     title: "Boult Audio",
     kicker: "Rebuilding a D2C audio store around the 9-second decision moment.",
     year: "2024",
-    role: "UX Designer · Revamp",
+    role: "UX Designer · D2C Revamp",
     status: "In progress",
     tldr: {
       problem:
@@ -167,21 +166,24 @@ export const projects: Project[] = [
     hasFullCase: true,
   },
   {
-    slug: "loreal-dashboard",
-    title: "L'Oréal · PowerBI",
-    kicker: "Making a 40-tab marketing dashboard answer one question fast.",
-    year: "2024",
-    role: "UX for Data",
-    status: "Done",
+    slug: "kitchen-iq",
+    title: "KitchenIQ",
+    kicker:
+      "A Bloomberg Terminal for India's cloud kitchens, real-time demand, price, and competitive intelligence built on Swiggy's live network.",
+    year: "2026",
+    role: "Self-initiated concept · B2B SaaS",
+    status: "In design",
     tldr: {
-      problem: "The brand team opened the dashboard, got overwhelmed, and went back to Excel.",
+      problem:
+        "India's 18,000+ cloud kitchen operators decide what to cook, where to expand, and how to price using gut feel, and 60% fail inside 18 months.",
       solution:
-        "Reorganized around three jobs-to-be-done, hid everything else behind progressive disclosure.",
-      result: "Daily active users on the dashboard 3×'d over six weeks.",
+        "A real-time market-intelligence SaaS built on Swiggy's live restaurant, menu, and pricing APIs, three lenses: Demand, Price, Competitive.",
+      result:
+        "Concept stage. No users yet. The goal: give cloud kitchen operators the same data confidence a Rebel Foods-scale chain has, at 1% of the infrastructure cost. Modeled TAM: ~₹1,800 Cr across India's top 8 cities.",
     },
-    tags: ["Data viz", "Dashboard"],
-    hero: "linear-gradient(135deg, oklch(0.32 0.09 350) 0%, oklch(0.55 0.13 25) 100%)",
-    cover: coverLoreal,
+    tags: ["B2B SaaS", "Data viz", "0→1", "In design"],
+    hero: "linear-gradient(135deg, oklch(0.32 0.05 145) 0%, oklch(0.55 0.14 155) 100%)",
+    cover: coverKitchenIq,
     hasFullCase: true,
   },
 ];

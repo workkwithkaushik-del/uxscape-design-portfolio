@@ -125,8 +125,7 @@ export function ProfileSection() {
           <Reveal delay={0.15}>
             <p className="text-lg text-foreground/85 leading-relaxed mb-10">
               Off the canvas: long-form writing, slow coffee, and a quiet obsession with how
-              supermarkets lay out their aisles. I'll happily redraw a flow on a napkin. I care a
-              lot about typography. I think hand-off is a conversation, not a Zip file.
+              supermarkets lay out their aisles. I think hand-off is a conversation, not a Zip file.
             </p>
           </Reveal>
 

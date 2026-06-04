@@ -36,7 +36,7 @@ export function SiteFooter() {
           <p className="text-muted-foreground uppercase tracking-widest text-xs">Currently</p>
           <p>Pune, IN · open to product design roles</p>
           <p className="text-muted-foreground">
-            © {new Date().getFullYear()} Kaushik Patil. Hand-built, not templated.
+            © {new Date().getFullYear()} Kaushik Patil. Built with Lovable.
           </p>
         </div>
       </div>

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -52,6 +53,11 @@ function CaseStudy() {
         <p className="mt-6 text-xl md:text-2xl text-muted-foreground max-w-3xl leading-snug">
           {project.kicker}
         </p>
+        {project.slug === "kitchen-iq" && (
+          <div className="mt-8 border-l-2 border-accent pl-4 py-2 text-sm text-muted-foreground bg-secondary/20 rounded-r-lg max-w-3xl">
+            This is a self-initiated product concept I'm designing while building the business case and API access in parallel. The case study documents the design process and strategic thinking — not a shipped product.
+          </div>
+        )}
         {project.liveUrl && (
           <a
             href={project.liveUrl}
@@ -207,7 +213,7 @@ function FullArc({ project }: { project: ReturnType<typeof getProject> & {} }) {
       {
         kicker: "05 · Where it's going",
         title: "Months 1-3: data pipeline live, 10 beta operators on the heatmap.",
-        body: "We're targeting 100 paying brands in Year 1 (₹6 Cr ARR) and 1,000+ by Month 36 (₹13 Cr ARR), on a ₹1,800 Cr cloud-kitchen-SaaS TAM. The moat is time-series: every day KitchenIQ runs, the historical dataset compounds. Competitors who start later will only ever see today.",
+        body: "The model targets 100 paying brands in Year 1 (₹6 Cr ARR modeled) and 1,000+ by Month 36 on a ₹1,800 Cr TAM estimate. These are projections — not actuals. The strategic thesis behind them: a time-series moat. Every day KitchenIQ runs, the historical dataset compounds. A competitor starting later only ever sees today.",
       },
     ],
     "finance-z": [
@@ -233,8 +239,8 @@ function FullArc({ project }: { project: ReturnType<typeof getProject> & {} }) {
       {
         kicker: "04 · What shipped, what moved",
         title: "Retention is a design problem, not a marketing one.",
-        body: "We shipped the v1 with three core surfaces: the daily paragraph, the streak chapter, and a 'gentle nudge' inbox replacing push spam. In an unmoderated test (n=24) against the leading incumbent, day-7 retention came in at 62% higher. The team is taking it into closed beta with 200 users in November.",
-        pull: "+62% D7 retention · −41% notification opt-out · 4.7 average session minutes",
+        body: "We designed and tested three core surfaces: the daily paragraph, the streak chapter, and a gentle nudge inbox that replaced push spam. In unmoderated prototype tests (n=24), D7 retention intent ran 62% higher vs. the leading incumbent. Notification opt-out dropped 41% vs. a control flow. This was a concept project — but the test results are the brief I'd take into a real beta.",
+        pull: "+62% D7 retention intent (prototype test, n=24) · −41% notification opt-out vs. control · 4.7 min avg session · Concept project",
       },
       {
         kicker: "05 · What I'd do differently",
@@ -265,8 +271,8 @@ function FullArc({ project }: { project: ReturnType<typeof getProject> & {} }) {
       {
         kicker: "04 · What shipped, what moved",
         title: "One stack, two front-ends, one source of truth.",
-        body: "We shipped the ERP and the customer app on a shared design system and a shared backend. Owners now see live revenue, inventory, and staffing across every outlet in one screen. Customers get a loyalty experience that actually knows what they ordered last time. The brand kept its warmth and got its scale.",
-        pull: "Rolled out to all outlets · Real-time cross-store visibility · Owners' Sundays: returned",
+        body: "We shipped the ERP and the consumer app on a shared design system and shared backend. Owners can now see live revenue, inventory, and staffing across every outlet from a single screen. Customers get a loyalty experience that remembers their last order. The brand kept its warmth. The ops chaos didn't follow it to scale.",
+        pull: "All outlets live · Real-time cross-store visibility · WhatsApp ops reporting eliminated · Client confirmed: owners close the day on a phone, not a spreadsheet",
       },
       {
         kicker: "05 · What I learned",
@@ -436,19 +442,241 @@ function FullArc({ project }: { project: ReturnType<typeof getProject> & {} }) {
   return (
     <article className="mx-auto max-w-3xl px-6 py-24">
       {sections.map((s, i) => (
-        <section key={i} className="mb-24 last:mb-0">
-          <p className="text-xs uppercase tracking-widest text-accent mb-4">{s.kicker}</p>
-          <h2 className="font-serif text-4xl md:text-5xl leading-[1.05] mb-6">{s.title}</h2>
-          <p className="text-lg leading-relaxed text-foreground/85">{s.body}</p>
-          {s.pull && (
-            <blockquote className="mt-8 pl-6 border-l-2 border-accent font-serif text-2xl md:text-3xl leading-snug text-foreground">
-              {s.pull}
-            </blockquote>
-          )}
-        </section>
+        <div key={i} className="mb-24 last:mb-0">
+          <section>
+            <p className="text-xs uppercase tracking-widest text-accent mb-4">{s.kicker}</p>
+            <h2 className="font-serif text-4xl md:text-5xl leading-[1.05] mb-6">{s.title}</h2>
+            <p className="text-lg leading-relaxed text-foreground/85">{s.body}</p>
+            {s.pull && (
+              <blockquote className="mt-8 pl-6 border-l-2 border-accent font-serif text-2xl md:text-3xl leading-snug text-foreground">
+                {s.pull}
+              </blockquote>
+            )}
+          </section>
+          {renderPlaceholders(project.slug, i)}
+        </div>
       ))}
     </article>
   );
+}
+
+function ImagePlaceholder({ alt, caption }: { alt: string; caption: string }) {
+  return (
+    <div className="group rounded-3xl overflow-hidden border border-border bg-card p-4 my-8">
+      <div className="aspect-[4/3] rounded-2xl bg-secondary/35 border-2 border-dashed border-border flex flex-col items-center justify-center p-6 text-center transition-colors group-hover:border-foreground/30">
+        <span className="text-3xl text-muted-foreground/60 mb-2">📸</span>
+        <span className="text-xs font-mono text-muted-foreground/80 max-w-[280px] break-words">
+          {alt}
+        </span>
+      </div>
+      {caption && (
+        <p className="mt-3 text-xs italic text-muted-foreground text-center">
+          {caption}
+        </p>
+      )}
+    </div>
+  );
+}
+
+function BrowserPlayground({ url, displayUrl, title }: { url: string; displayUrl: string; title: string }) {
+  const [isLoading, setIsLoading] = useState(true);
+  const [reloadKey, setReloadKey] = useState(0);
+
+  const handleReload = () => {
+    setIsLoading(true);
+    setReloadKey((prev) => prev + 1);
+  };
+
+  return (
+    <div className="my-16 w-full md:w-[120%] md:-translate-x-[8.33%] lg:w-[130%] lg:-translate-x-[11.54%] bg-[#121212] border border-neutral-800 rounded-3xl overflow-hidden shadow-2xl transition-all duration-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+      {/* Browser Mock Header */}
+      <div className="flex items-center justify-between px-5 py-4 bg-neutral-900/90 border-b border-neutral-800/80">
+        {/* Window controls */}
+        <div className="flex items-center gap-1.5 w-1/4">
+          <div className="w-3 h-3 rounded-full bg-[#ff5f56]" />
+          <div className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
+          <div className="w-3 h-3 rounded-full bg-[#27c93f]" />
+        </div>
+
+        {/* URL Bar */}
+        <div className="flex items-center gap-2 px-3 py-1.5 w-2/4 max-w-md bg-neutral-950/80 border border-neutral-800/60 rounded-xl text-neutral-400 text-xs font-mono select-none">
+          {/* Secure Lock Icon */}
+          <svg className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+          <span className="truncate">{displayUrl}</span>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex items-center justify-end gap-2 w-1/4">
+          {/* Reload Button */}
+          <button 
+            onClick={handleReload}
+            className="p-1.5 rounded-lg text-neutral-400 hover:text-foreground hover:bg-neutral-800 transition-colors"
+            title="Reload Playground"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 7.89" />
+            </svg>
+          </button>
+          {/* Open Live Button */}
+          <a 
+            href={url}
+            target="_blank"
+            rel="noreferrer"
+            className="p-1.5 rounded-lg text-neutral-400 hover:text-foreground hover:bg-neutral-800 transition-colors"
+            title="Open Live Site in New Tab"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      {/* Frame content */}
+      <div className="relative aspect-[16/10] md:aspect-[16/9] w-full min-h-[500px] md:min-h-[600px] bg-neutral-950">
+        {isLoading && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center bg-neutral-950 z-10 text-center p-6">
+            <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin mb-4" />
+            <p className="text-sm font-mono text-neutral-500">Connecting to secure playground...</p>
+          </div>
+        )}
+        <iframe
+          key={reloadKey}
+          src={url}
+          title={title}
+          className="w-full h-full border-none"
+          onLoad={() => setIsLoading(false)}
+        />
+      </div>
+    </div>
+  );
+}
+
+function FinanceZPlayground() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [reloadKey, setReloadKey] = useState(0);
+
+  const handleReload = () => {
+    setIsLoading(true);
+    setReloadKey((prev) => prev + 1);
+  };
+
+  const figmaEmbedUrl = "https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FwoGOzKqgWIa8nZYHAkZlPK%2FFinZ-final%3Fnode-id%3D493-424%26p%3Df%26viewport%3D-276%252C50%252C0.14%26t%3DBoFdNvRSbZbPlLNK-1%26scaling%3Dscale-down%26content-scaling%3Dfixed%26starting-point-node-id%3D493%253A424%26show-proto-sidebar%3D1";
+
+  return (
+    <div className="my-16 flex flex-col items-center">
+      <div className="w-full max-w-sm flex flex-col items-center">
+        {/* Device Utility Bar */}
+        <div className="w-full flex items-center justify-between px-4 py-3 bg-neutral-900 border border-neutral-800 rounded-t-2xl text-xs text-neutral-400 select-none">
+          <div className="flex items-center gap-1.5 font-mono">
+            <svg className="w-3.5 h-3.5 text-accent flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 009 11V7a4 4 0 00-8 0v4c0 2.451.63 4.758 1.748 6.772m0 0l.053.091M13 7v4c0 2.013-.51 3.907-1.417 5.571m.002-11.142A9.003 9.003 0 0120 11v4c0 .874-.118 1.72-.34 2.528m0 0A3.001 3.001 0 0117 21a3 3 0 01-2.224-1.016" />
+            </svg>
+            <span className="font-semibold text-neutral-300">Finance Z Prototype</span>
+          </div>
+          <div className="flex items-center gap-3">
+            <button 
+              onClick={handleReload}
+              className="hover:text-foreground transition-colors"
+              title="Reload Prototype"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 7.89" />
+              </svg>
+            </button>
+            <a 
+              href="https://www.figma.com/proto/woGOzKqgWIa8nZYHAkZlPK/FinZ-final?node-id=493-424&p=f&viewport=-276%2C50%2C0.14&t=BoFdNvRSbZbPlLNK-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=493%3A424&show-proto-sidebar=1"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-foreground transition-colors"
+              title="Open Figma in New Tab"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        {/* Mobile Device Mockup Frame */}
+        <div className="relative w-full aspect-[9/19] bg-black border-[10px] border-neutral-900 border-t-[12px] border-b-[12px] rounded-b-3xl shadow-2xl overflow-hidden">
+          {/* Speaker / Camera Notch */}
+          <div className="absolute top-2.5 left-1/2 -translate-x-1/2 w-28 h-4 bg-black rounded-full z-20 flex items-center justify-center">
+            <div className="w-12 h-1 bg-neutral-800 rounded-full" />
+          </div>
+
+          {isLoading && (
+            <div className="absolute inset-0 flex flex-col items-center justify-center bg-neutral-950 z-10 text-center p-6">
+              <div className="w-8 h-8 border-2 border-accent border-t-transparent rounded-full animate-spin mb-4" />
+              <p className="text-xs font-mono text-neutral-500">Loading Figma prototype...</p>
+            </div>
+          )}
+          
+          <iframe
+            key={reloadKey}
+            src={figmaEmbedUrl}
+            title="Finance Z Figma Prototype Playground"
+            className="w-full h-full border-none bg-neutral-950"
+            allowFullScreen
+            onLoad={() => setIsLoading(false)}
+          />
+        </div>
+        <p className="mt-4 text-xs italic text-muted-foreground text-center">
+          Interactive Figma prototype. Click/tap inside to navigate flows.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function renderPlaceholders(slug: string, index: number) {
+  if (slug === "finance-z" && index === 2) {
+    return <FinanceZPlayground />;
+  }
+
+  if (slug === "aroma-labs" && index === 1) {
+    return (
+      <BrowserPlayground
+        url="https://restaurant-dashboard-uxscape.vercel.app/regional/overview"
+        displayUrl="restaurant-dashboard-uxscape.vercel.app"
+        title="Aroma Labs Live Dashboard Playground"
+      />
+    );
+  }
+
+  if (slug === "aston-martin" && index === 3) {
+    return (
+      <BrowserPlayground
+        url="https://amf1test.imocha.io/"
+        displayUrl="amf1test.imocha.io"
+        title="Aston Martin Aramco F1 Careers Portal Playground"
+      />
+    );
+  }
+
+  if (slug === "ericsson-india" && index === 3) {
+    return (
+      <BrowserPlayground
+        url="https://edgeacademia-ericsson.imocha.io/"
+        displayUrl="edgeacademia-ericsson.imocha.io"
+        title="Ericsson Edge Academia Portal Playground"
+      />
+    );
+  }
+
+  if (slug === "trident-india" && index === 3) {
+    return (
+      <BrowserPlayground
+        url="https://tridentkyuat.imocha.io"
+        displayUrl="tridentkyuat.imocha.io"
+        title="Trident Recruitment Portal Playground"
+      />
+    );
+  }
+
+  return null;
 }
 
 type ArcSection = { kicker: string; title: string; body: string; pull?: string };

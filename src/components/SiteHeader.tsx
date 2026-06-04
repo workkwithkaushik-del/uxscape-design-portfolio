@@ -57,7 +57,7 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-3">
           <a
-            href="/Kaushik_Patil_Founding_Designer.pdf"
+            href="/Kaushik_Patil_Product_Designer.pdf"
             download
             className="text-sm px-4 py-2 rounded-full bg-foreground text-background hover:bg-accent transition-colors"
           >
