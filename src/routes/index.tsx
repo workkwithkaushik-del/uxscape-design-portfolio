@@ -257,46 +257,48 @@ function Home() {
               className={i === 0 ? "md:col-span-2" : ""}
             >
               <Reveal y={40} delay={i * 0.04}>
-                <Tilt3D max={6} className="rounded-3xl h-full">
-                  <Link
-                    to="/work/$slug"
-                    params={{ slug: p.slug }}
-                    className="group relative overflow-hidden rounded-3xl border border-border hover:border-foreground transition-all bg-card flex flex-col h-full"
-                  >
-                    <div
-                      className={`relative ${i === 0 ? "aspect-[16/9] md:aspect-[2.2/1]" : "aspect-[16/10] md:aspect-[4/3]"} overflow-hidden`}
-                    >
-                      <img
-                        src={p.cover}
-                        alt={`${p.title} cover`}
-                        loading="lazy"
-                        width={1600}
-                        height={900}
-                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/30" />
-                      <div className="absolute top-0 inset-x-0 p-5 md:p-8 flex items-center justify-between text-white">
-                        <span className="text-[10px] md:text-xs uppercase tracking-widest opacity-90">
-                          {p.role}
-                        </span>
-                        <span className="text-[10px] md:text-xs uppercase tracking-widest opacity-90 text-right">
-                          {p.year} · {p.status}
-                        </span>
+                <Link
+                  to="/work/$slug"
+                  params={{ slug: p.slug }}
+                  className="group block h-full rounded-3xl"
+                >
+                  <Tilt3D max={6} className="h-full w-full">
+                    <div className="relative overflow-hidden rounded-3xl border border-border group-hover:border-foreground transition-all bg-card flex flex-col h-full">
+                      <div
+                        className={`relative ${i === 0 ? "aspect-[16/9] md:aspect-[2.2/1]" : "aspect-[16/10] md:aspect-[4/3]"} overflow-hidden`}
+                      >
+                        <img
+                          src={p.cover}
+                          alt={`${p.title} cover`}
+                          loading="lazy"
+                          width={1600}
+                          height={900}
+                          className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.04]"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/30" />
+                        <div className="absolute top-0 inset-x-0 p-5 md:p-8 flex items-center justify-between text-white">
+                          <span className="text-[10px] md:text-xs uppercase tracking-widest opacity-90">
+                            {p.role}
+                          </span>
+                          <span className="text-[10px] md:text-xs uppercase tracking-widest opacity-90 text-right">
+                            {p.year} · {p.status}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="p-5 md:p-8">
+                        <h3 className="font-serif text-2xl sm:text-3xl md:text-5xl leading-tight mb-2 md:mb-3">
+                          {p.title}
+                        </h3>
+                        <p className="text-sm md:text-lg text-muted-foreground leading-snug max-w-xl">
+                          {p.kicker}
+                        </p>
+                        <div className="mt-4 md:mt-6 flex items-center gap-2 text-sm text-foreground/80 group-hover:text-accent group-hover:gap-3 transition-all">
+                          Read the case <span>→</span>
+                        </div>
                       </div>
                     </div>
-                    <div className="p-5 md:p-8">
-                      <h3 className="font-serif text-2xl sm:text-3xl md:text-5xl leading-tight mb-2 md:mb-3">
-                        {p.title}
-                      </h3>
-                      <p className="text-sm md:text-lg text-muted-foreground leading-snug max-w-xl">
-                        {p.kicker}
-                      </p>
-                      <div className="mt-4 md:mt-6 flex items-center gap-2 text-sm text-foreground/80 group-hover:text-accent group-hover:gap-3 transition-all">
-                        Read the case <span>→</span>
-                      </div>
-                    </div>
-                  </Link>
-                </Tilt3D>
+                  </Tilt3D>
+                </Link>
               </Reveal>
             </ScrollFlipCard>
           ))}
