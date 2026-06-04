@@ -55,7 +55,9 @@ function CaseStudy() {
         </p>
         {project.slug === "kitchen-iq" && (
           <div className="mt-8 border-l-2 border-accent pl-4 py-2 text-sm text-muted-foreground bg-secondary/20 rounded-r-lg max-w-3xl">
-            This is a self-initiated product concept I'm designing while building the business case and API access in parallel. The case study documents the design process and strategic thinking — not a shipped product.
+            This is a self-initiated product concept I'm designing while building the business case
+            and API access in parallel. The case study documents the design process and strategic
+            thinking — not a shipped product.
           </div>
         )}
         {project.liveUrl && (
@@ -470,15 +472,21 @@ function ImagePlaceholder({ alt, caption }: { alt: string; caption: string }) {
         </span>
       </div>
       {caption && (
-        <p className="mt-3 text-xs italic text-muted-foreground text-center">
-          {caption}
-        </p>
+        <p className="mt-3 text-xs italic text-muted-foreground text-center">{caption}</p>
       )}
     </div>
   );
 }
 
-function BrowserPlayground({ url, displayUrl, title }: { url: string; displayUrl: string; title: string }) {
+function BrowserPlayground({
+  url,
+  displayUrl,
+  title,
+}: {
+  url: string;
+  displayUrl: string;
+  title: string;
+}) {
   const [isLoading, setIsLoading] = useState(true);
   const [reloadKey, setReloadKey] = useState(0);
 
@@ -501,8 +509,18 @@ function BrowserPlayground({ url, displayUrl, title }: { url: string; displayUrl
         {/* URL Bar */}
         <div className="flex items-center gap-2 px-3 py-1.5 w-2/4 max-w-md bg-neutral-950/80 border border-neutral-800/60 rounded-xl text-neutral-400 text-xs font-mono select-none">
           {/* Secure Lock Icon */}
-          <svg className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          <svg
+            className="w-3.5 h-3.5 text-emerald-500 flex-shrink-0"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth={2.5}
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+            />
           </svg>
           <span className="truncate">{displayUrl}</span>
         </div>
@@ -510,25 +528,45 @@ function BrowserPlayground({ url, displayUrl, title }: { url: string; displayUrl
         {/* Action Buttons */}
         <div className="flex items-center justify-end gap-2 w-1/4">
           {/* Reload Button */}
-          <button 
+          <button
             onClick={handleReload}
             className="p-1.5 rounded-lg text-neutral-400 hover:text-foreground hover:bg-neutral-800 transition-colors"
             title="Reload Playground"
           >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 7.89" />
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 7.89"
+              />
             </svg>
           </button>
           {/* Open Live Button */}
-          <a 
+          <a
             href={url}
             target="_blank"
             rel="noreferrer"
             className="p-1.5 rounded-lg text-neutral-400 hover:text-foreground hover:bg-neutral-800 transition-colors"
             title="Open Live Site in New Tab"
           >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+              />
             </svg>
           </a>
         </div>
@@ -563,7 +601,8 @@ function FinanceZPlayground() {
     setReloadKey((prev) => prev + 1);
   };
 
-  const figmaEmbedUrl = "https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FwoGOzKqgWIa8nZYHAkZlPK%2FFinZ-final%3Fnode-id%3D493-424%26p%3Df%26viewport%3D-276%252C50%252C0.14%26t%3DBoFdNvRSbZbPlLNK-1%26scaling%3Dscale-down%26content-scaling%3Dfixed%26starting-point-node-id%3D493%253A424%26show-proto-sidebar%3D1";
+  const figmaEmbedUrl =
+    "https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FwoGOzKqgWIa8nZYHAkZlPK%2FFinZ-final%3Fnode-id%3D493-424%26p%3Df%26viewport%3D-276%252C50%252C0.14%26t%3DBoFdNvRSbZbPlLNK-1%26scaling%3Dscale-down%26content-scaling%3Dfixed%26starting-point-node-id%3D493%253A424%26show-proto-sidebar%3D1";
 
   return (
     <div className="my-16 flex flex-col items-center">
@@ -571,30 +610,60 @@ function FinanceZPlayground() {
         {/* Device Utility Bar */}
         <div className="w-full flex items-center justify-between px-4 py-3 bg-neutral-900 border border-neutral-800 rounded-t-2xl text-xs text-neutral-400 select-none">
           <div className="flex items-center gap-1.5 font-mono">
-            <svg className="w-3.5 h-3.5 text-accent flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 009 11V7a4 4 0 00-8 0v4c0 2.451.63 4.758 1.748 6.772m0 0l.053.091M13 7v4c0 2.013-.51 3.907-1.417 5.571m.002-11.142A9.003 9.003 0 0120 11v4c0 .874-.118 1.72-.34 2.528m0 0A3.001 3.001 0 0117 21a3 3 0 01-2.224-1.016" />
+            <svg
+              className="w-3.5 h-3.5 text-accent flex-shrink-0"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2.5}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 009 11V7a4 4 0 00-8 0v4c0 2.451.63 4.758 1.748 6.772m0 0l.053.091M13 7v4c0 2.013-.51 3.907-1.417 5.571m.002-11.142A9.003 9.003 0 0120 11v4c0 .874-.118 1.72-.34 2.528m0 0A3.001 3.001 0 0117 21a3 3 0 01-2.224-1.016"
+              />
             </svg>
             <span className="font-semibold text-neutral-300">Finance Z Prototype</span>
           </div>
           <div className="flex items-center gap-3">
-            <button 
+            <button
               onClick={handleReload}
               className="hover:text-foreground transition-colors"
               title="Reload Prototype"
             >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 7.89" />
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 7.89"
+                />
               </svg>
             </button>
-            <a 
+            <a
               href="https://www.figma.com/proto/woGOzKqgWIa8nZYHAkZlPK/FinZ-final?node-id=493-424&p=f&viewport=-276%2C50%2C0.14&t=BoFdNvRSbZbPlLNK-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=493%3A424&show-proto-sidebar=1"
               target="_blank"
               rel="noreferrer"
               className="hover:text-foreground transition-colors"
               title="Open Figma in New Tab"
             >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                />
               </svg>
             </a>
           </div>
@@ -613,7 +682,7 @@ function FinanceZPlayground() {
               <p className="text-xs font-mono text-neutral-500">Loading Figma prototype...</p>
             </div>
           )}
-          
+
           <iframe
             key={reloadKey}
             src={figmaEmbedUrl}
