@@ -14,7 +14,7 @@ export function SiteFooter() {
         <div className="space-y-3 text-sm">
           <p className="text-muted-foreground uppercase tracking-widest text-xs">Elsewhere</p>
           <a
-            href="https://www.linkedin.com/in/kaushik-patil02"
+            href="https://www.linkedin.com/in/kaushik-patil02/"
             className="block hover:text-accent transition-colors"
           >
             LinkedIn ↗
