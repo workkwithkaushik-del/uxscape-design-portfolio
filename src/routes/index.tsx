@@ -223,7 +223,7 @@ function Home() {
       <ProfileSection />
 
       {/* WORK */}
-      <section id="work" className="mx-auto max-w-6xl px-6 py-24">
+      <section id="work" className="relative z-0 mx-auto max-w-6xl px-6 py-24">
         <div className="flex items-end justify-between mb-12">
           <div>
             <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">

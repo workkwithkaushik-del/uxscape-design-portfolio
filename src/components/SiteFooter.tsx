@@ -1,6 +1,6 @@
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border mt-32">
+    <footer className="relative z-10 bg-background border-t border-border mt-32">
       <div className="mx-auto max-w-6xl px-6 py-16 grid md:grid-cols-3 gap-12">
         <div>
           <h3 className="font-serif text-4xl leading-tight">
