@@ -9,6 +9,10 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import { SpotifyPlayer } from "@/components/SpotifyPlayer";
+import { GamificationProvider, useGamification } from "@/hooks/useGamification";
+import { AchievementToast } from "@/components/AchievementToast";
+import { AchievementDrawer } from "@/components/AchievementDrawer";
 
 function NotFoundComponent() {
   return (
@@ -110,12 +114,27 @@ function RootShell({ children }: { children: React.ReactNode }) {
   );
 }
 
+function RootInner() {
+  const { drawerOpen, setDrawerOpen } = useGamification();
+
+  return (
+    <>
+      <SpotifyPlayer />
+      <Outlet />
+      <AchievementToast />
+      <AchievementDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
+    </>
+  );
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
-      <Outlet />
+      <GamificationProvider>
+        <RootInner />
+      </GamificationProvider>
     </QueryClientProvider>
   );
 }

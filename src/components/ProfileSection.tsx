@@ -42,7 +42,7 @@ export function ProfileSection() {
       id="profile"
       className="relative border-y border-border bg-secondary/30 overflow-hidden"
     >
-      <div className="mx-auto max-w-6xl px-6 py-20 md:py-28 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+      <div className="mx-auto max-w-6xl px-6 pt-20 md:pt-28 pb-10 grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
         {/* Photo collage */}
         <div className="lg:col-span-6 relative h-[420px] sm:h-[560px] md:h-[640px]">
           {/* Annotated lifestyle, front layer */}
@@ -143,6 +143,17 @@ export function ProfileSection() {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* Spotify Player Docking Placeholder */}
+      <div className="mx-auto max-w-6xl px-6 pb-20 md:pb-28 pt-6 md:pt-10">
+        <Reveal delay={0.18}>
+          <div
+            id="spotify-profile-placeholder"
+            data-compact="false"
+            className="w-full h-[580px] rounded-3xl border border-dashed border-border/60 bg-secondary/20"
+          />
+        </Reveal>
       </div>
     </section>
   );

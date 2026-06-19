@@ -1,12 +1,21 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { motion, useScroll, useSpring, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import { useGamification } from "@/hooks/useGamification";
+import { XPBar } from "@/components/XPBar";
 
 export function SiteHeader() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 25, restDelta: 0.001 });
   const [isOpen, setIsOpen] = useState(false);
+  
+  const location = useLocation();
+  const { trackPageVisit, trackResumeDownload } = useGamification();
+
+  useEffect(() => {
+    trackPageVisit(location.pathname);
+  }, [location.pathname, trackPageVisit]);
 
   return (
     <header className="sticky top-0 z-40 backdrop-blur-md bg-background/70 border-b border-border">
@@ -56,9 +65,11 @@ export function SiteHeader() {
         </nav>
 
         <div className="flex items-center gap-3">
+          <XPBar />
           <a
             href="/resume.pdf"
             download
+            onClick={trackResumeDownload}
             className="text-sm px-4 py-2 rounded-full bg-foreground text-background hover:bg-accent transition-colors"
           >
             Résumé ↓

@@ -4,6 +4,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { projects } from "@/lib/projects";
 import { ProfileSection } from "@/components/ProfileSection";
+import { useGamification } from "@/hooks/useGamification";
 import { FaqSection } from "@/components/FaqSection";
 import { Tilt3D } from "@/components/Tilt3D";
 import { ScrollFlipCard, Reveal } from "@/components/ScrollReveal";
@@ -121,6 +122,7 @@ const experience = [
 ];
 
 function Home() {
+  const { trackProjectFilter } = useGamification();
   const [selectedYear, setSelectedYear] = useState<string>("All");
 
   const sortedProjects = [...projects];
@@ -246,7 +248,10 @@ function Home() {
           {["All", "2026", "2025", "2024", "2023"].map((year) => (
             <button
               key={year}
-              onClick={() => setSelectedYear(year)}
+              onClick={() => {
+                setSelectedYear(year);
+                if (year !== "All") trackProjectFilter();
+              }}
               className={`px-4 py-1.5 rounded-full text-xs font-mono uppercase tracking-widest border transition-all ${
                 selectedYear === year
                   ? "bg-foreground text-background border-foreground shadow-sm"

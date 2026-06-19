@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { getProject, projects } from "@/lib/projects";
+import { useScroll, useMotionValueEvent } from "framer-motion";
+import { useGamification } from "@/hooks/useGamification";
 
 export const Route = createFileRoute("/work/$slug")({
   loader: ({ params }) => {
@@ -36,6 +38,15 @@ export const Route = createFileRoute("/work/$slug")({
 function CaseStudy() {
   const { project } = Route.useLoaderData();
   const others = projects.filter((p) => p.slug !== project.slug).slice(0, 2);
+  
+  const { scrollYProgress } = useScroll();
+  const { trackCaseRead } = useGamification();
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (latest > 0.85) {
+      trackCaseRead(project.slug);
+    }
+  });
 
   return (
     <div className="min-h-screen">
@@ -701,6 +712,16 @@ function FinanceZPlayground() {
 }
 
 function renderPlaceholders(slug: string, index: number) {
+  if (slug === "kitchen-iq" && index === 3) {
+    return (
+      <BrowserPlayground
+        url="https://kitcheniq-uxscape.vercel.app"
+        displayUrl="kitcheniq-uxscape.vercel.app"
+        title="Kitchen IQ Live Dashboard Playground"
+      />
+    );
+  }
+
   if (slug === "finance-z" && index === 2) {
     return <FinanceZPlayground />;
   }

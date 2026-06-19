@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Reveal } from "@/components/ScrollReveal";
+import { useGamification } from "@/hooks/useGamification";
 
 const faqs = [
   {
@@ -31,11 +32,23 @@ const faqs = [
 
 function Item({ q, a, i }: { q: string; a: string; i: number }) {
   const [open, setOpen] = useState(i === 0);
+  const { trackFaqOpen } = useGamification();
+
+  const handleToggle = () => {
+    setOpen((v) => {
+      const next = !v;
+      if (next) {
+        trackFaqOpen();
+      }
+      return next;
+    });
+  };
+
   return (
     <Reveal y={24} delay={i * 0.04}>
       <div className="border-b border-border">
         <button
-          onClick={() => setOpen((v) => !v)}
+          onClick={handleToggle}
           className="w-full py-7 flex items-start gap-6 text-left group"
           aria-expanded={open}
         >

@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { useScroll, useMotionValueEvent } from "framer-motion";
+import { useGamification } from "@/hooks/useGamification";
 
 export const Route = createFileRoute("/process")({
   head: () => ({
@@ -51,6 +53,15 @@ const stages = [
 ];
 
 function Process() {
+  const { scrollYProgress } = useScroll();
+  const { trackProcessRead } = useGamification();
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (latest > 0.8) {
+      trackProcessRead();
+    }
+  });
+
   return (
     <div className="min-h-screen">
       <SiteHeader />

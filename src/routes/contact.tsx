@@ -1,6 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
+import { useEffect } from "react";
+import { useGamification } from "@/hooks/useGamification";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -51,6 +53,12 @@ const channels = [
 ];
 
 function ContactPage() {
+  const { trackContactVisit, trackResumeDownload } = useGamification();
+
+  useEffect(() => {
+    trackContactVisit();
+  }, [trackContactVisit]);
+
   return (
     <div className="min-h-screen">
       <SiteHeader />
@@ -79,6 +87,7 @@ function ContactPage() {
               download={"download" in c && c.download ? "" : undefined}
               target={c.href.startsWith("http") ? "_blank" : undefined}
               rel={c.href.startsWith("http") ? "noreferrer" : undefined}
+              onClick={c.label === "Résumé" ? trackResumeDownload : undefined}
               className="group rounded-3xl border border-border hover:border-foreground transition-colors p-6 md:p-8 bg-card"
             >
               <p className="text-xs uppercase tracking-widest text-muted-foreground">{c.label}</p>
