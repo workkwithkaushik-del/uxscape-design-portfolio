@@ -153,55 +153,47 @@ export function GamificationProvider({ children }: { children: ReactNode }) {
 
   // Check time-based achievement
   useEffect(() => {
-    if (
-      state.stats.timeOnSite >= TIME_THRESHOLD &&
-      !state.achievements.includes("time_investor")
-    ) {
+    if (state.stats.timeOnSite >= TIME_THRESHOLD && !state.achievements.includes("time_investor")) {
       unlockAchievement("time_investor");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.stats.timeOnSite]);
 
   // ── Achievement unlock logic ──
-  const unlockAchievement = useCallback(
-    (id: string) => {
-      setState((prev) => {
-        if (prev.achievements.includes(id)) return prev;
-        const ach = getAchievement(id);
-        if (!ach) return prev;
+  const unlockAchievement = useCallback((id: string) => {
+    setState((prev) => {
+      if (prev.achievements.includes(id)) return prev;
+      const ach = getAchievement(id);
+      if (!ach) return prev;
 
-        const newAchievements = [...prev.achievements, id];
-        const newXP = prev.xp + ach.xp;
+      const newAchievements = [...prev.achievements, id];
+      const newXP = prev.xp + ach.xp;
 
-        // Queue toast
-        setPendingToasts((toasts) => [
-          ...toasts,
-          {
-            id: ach.id,
-            name: ach.name,
-            description: ach.description,
-            xp: ach.xp,
-            icon: ach.icon,
-            timestamp: Date.now(),
-          },
-        ]);
+      // Queue toast
+      setPendingToasts((toasts) => [
+        ...toasts,
+        {
+          id: ach.id,
+          name: ach.name,
+          description: ach.description,
+          xp: ach.xp,
+          icon: ach.icon,
+          timestamp: Date.now(),
+        },
+      ]);
 
-        return {
-          ...prev,
-          xp: newXP,
-          achievements: newAchievements,
-        };
-      });
-    },
-    [],
-  );
+      return {
+        ...prev,
+        xp: newXP,
+        achievements: newAchievements,
+      };
+    });
+  }, []);
 
   // Check completionist after every achievement unlock
   useEffect(() => {
     const nonCompletionist = ACHIEVEMENTS.filter((a) => a.id !== "completionist");
-    const allUnlocked = nonCompletionist.every((a) =>
-      state.achievements.includes(a.id),
-    );
+    const allUnlocked = nonCompletionist.every((a) => state.achievements.includes(a.id));
     if (allUnlocked && !state.achievements.includes("completionist")) {
       unlockAchievement("completionist");
     }
@@ -235,9 +227,7 @@ export function GamificationProvider({ children }: { children: ReactNode }) {
       setTimeout(() => {
         const current = stateRef.current;
         const required = ["/", "/about", "/process", "/contact"];
-        const allVisited = required.every((p) =>
-          current.stats.pagesVisited.includes(p),
-        );
+        const allVisited = required.every((p) => current.stats.pagesVisited.includes(p));
         if (allVisited && !current.achievements.includes("explorer")) {
           unlockAchievement("explorer");
         }
@@ -321,10 +311,7 @@ export function GamificationProvider({ children }: { children: ReactNode }) {
 
       setTimeout(() => {
         const current = stateRef.current;
-        if (
-          current.stats.spotifyGenres.length >= 3 &&
-          !current.achievements.includes("dj_mode")
-        ) {
+        if (current.stats.spotifyGenres.length >= 3 && !current.achievements.includes("dj_mode")) {
           unlockAchievement("dj_mode");
         }
       }, 100);
@@ -407,9 +394,5 @@ export function GamificationProvider({ children }: { children: ReactNode }) {
     setDrawerOpen,
   };
 
-  return (
-    <GamificationContext.Provider value={value}>
-      {children}
-    </GamificationContext.Provider>
-  );
+  return <GamificationContext.Provider value={value}>{children}</GamificationContext.Provider>;
 }

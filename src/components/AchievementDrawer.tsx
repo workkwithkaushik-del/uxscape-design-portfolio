@@ -21,17 +21,21 @@ import {
 } from "lucide-react";
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
-  Sparkles, Compass, BookOpen, Library, HelpCircle, Headphones,
-  Disc3, FileDown, MessageCircle, Workflow, Clock, Trophy,
+  Sparkles,
+  Compass,
+  BookOpen,
+  Library,
+  HelpCircle,
+  Headphones,
+  Disc3,
+  FileDown,
+  MessageCircle,
+  Workflow,
+  Clock,
+  Trophy,
 };
 
-export function AchievementDrawer({
-  open,
-  onClose,
-}: {
-  open: boolean;
-  onClose: () => void;
-}) {
+export function AchievementDrawer({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { state, getProgress } = useGamification();
   const progress = getProgress();
   const unlockedCount = state.achievements.length;
@@ -90,15 +94,14 @@ export function AchievementDrawer({
                     <span className="inline-flex items-center justify-center h-6 w-6 rounded-lg bg-accent text-paper text-xs font-bold font-mono">
                       {progress.level}
                     </span>
-                    <span className="text-sm font-semibold text-ink">
-                      {progress.name}
-                    </span>
+                    <span className="text-sm font-semibold text-ink">{progress.name}</span>
                   </div>
                   <span className="text-xs font-mono text-muted-foreground">
                     {progress.xp} XP{" "}
                     {!progress.isMaxLevel && (
                       <span className="text-muted-foreground/60">
-                        / {progress.xpIntoLevel + (progress.xpForNextLevel - progress.xpIntoLevel)} to next
+                        / {progress.xpIntoLevel + (progress.xpForNextLevel - progress.xpIntoLevel)}{" "}
+                        to next
                       </span>
                     )}
                   </span>
@@ -157,9 +160,7 @@ export function AchievementDrawer({
                       </p>
                       <p
                         className={`text-[10px] leading-snug ${
-                          isUnlocked
-                            ? "text-muted-foreground"
-                            : "text-muted-foreground/40 italic"
+                          isUnlocked ? "text-muted-foreground" : "text-muted-foreground/40 italic"
                         }`}
                       >
                         {isUnlocked ? ach.description : ach.hint}
@@ -195,20 +196,9 @@ export function AchievementDrawer({
                   Exploration Stats
                 </p>
                 <div className="grid grid-cols-3 gap-3">
-                  <StatCard
-                    label="Pages"
-                    value={state.stats.pagesVisited.length}
-                    max={4}
-                  />
-                  <StatCard
-                    label="Cases"
-                    value={state.stats.casesRead.length}
-                    max={8}
-                  />
-                  <StatCard
-                    label="Time"
-                    value={formatTime(state.stats.timeOnSite)}
-                  />
+                  <StatCard label="Pages" value={state.stats.pagesVisited.length} max={4} />
+                  <StatCard label="Cases" value={state.stats.casesRead.length} max={8} />
+                  <StatCard label="Time" value={formatTime(state.stats.timeOnSite)} />
                 </div>
               </div>
             </div>
@@ -219,23 +209,13 @@ export function AchievementDrawer({
   );
 }
 
-function StatCard({
-  label,
-  value,
-  max,
-}: {
-  label: string;
-  value: number | string;
-  max?: number;
-}) {
+function StatCard({ label, value, max }: { label: string; value: number | string; max?: number }) {
   return (
     <div className="bg-secondary/30 rounded-xl p-3 text-center border border-border/30">
       <p className="font-serif text-lg font-bold text-ink leading-none">
         {value}
         {max !== undefined && (
-          <span className="text-muted-foreground/50 text-xs font-sans">
-            /{max}
-          </span>
+          <span className="text-muted-foreground/50 text-xs font-sans">/{max}</span>
         )}
       </p>
       <p className="text-[9px] font-mono uppercase tracking-wider text-muted-foreground mt-1">

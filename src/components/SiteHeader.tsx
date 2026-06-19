@@ -9,7 +9,7 @@ export function SiteHeader() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, { stiffness: 120, damping: 25, restDelta: 0.001 });
   const [isOpen, setIsOpen] = useState(false);
-  
+
   const location = useLocation();
   const { trackPageVisit, trackResumeDownload } = useGamification();
 

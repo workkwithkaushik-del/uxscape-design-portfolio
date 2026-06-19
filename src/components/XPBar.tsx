@@ -52,10 +52,7 @@ export function XPBar() {
 
       {/* XP bar */}
       <div className="w-14 h-1.5 bg-border/30 rounded-full overflow-hidden">
-        <motion.div
-          className="h-full bg-accent rounded-full"
-          style={{ width: widthPercent }}
-        />
+        <motion.div className="h-full bg-accent rounded-full" style={{ width: widthPercent }} />
       </div>
 
       {/* XP count */}

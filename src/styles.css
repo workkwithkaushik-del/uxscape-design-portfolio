@@ -105,7 +105,8 @@
     }
   }
   @keyframes xp-pulse {
-    0%, 100% {
+    0%,
+    100% {
       transform: scale(1);
       box-shadow: 0 0 0 color-mix(in oklch, var(--ember) 0%, transparent);
     }

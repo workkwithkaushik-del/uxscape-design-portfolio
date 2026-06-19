@@ -127,9 +127,7 @@ export function getLevelForXP(xp: number) {
   const next = LEVELS[currentIndex + 1] || null;
   const xpIntoLevel = xp - current.xpRequired;
   const xpForNextLevel = next ? next.xpRequired - current.xpRequired : 1;
-  const progressPercent = next
-    ? Math.min((xpIntoLevel / xpForNextLevel) * 100, 100)
-    : 100;
+  const progressPercent = next ? Math.min((xpIntoLevel / xpForNextLevel) * 100, 100) : 100;
 
   return {
     level: current.level,

@@ -38,7 +38,7 @@ export const Route = createFileRoute("/work/$slug")({
 function CaseStudy() {
   const { project } = Route.useLoaderData();
   const others = projects.filter((p) => p.slug !== project.slug).slice(0, 2);
-  
+
   const { scrollYProgress } = useScroll();
   const { trackCaseRead } = useGamification();
 

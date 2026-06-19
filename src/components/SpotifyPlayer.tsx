@@ -124,58 +124,61 @@ export function SpotifyPlayer() {
     }
   }, []);
 
-  const initSpotifyController = useCallback((iframeElement: HTMLDivElement | null) => {
-    if (!iframeElement) return;
+  const initSpotifyController = useCallback(
+    (iframeElement: HTMLDivElement | null) => {
+      if (!iframeElement) return;
 
-    const win = window as unknown as {
-      spotifyIFrameAPI?: SpotifyIFrameAPI;
-      spotifyEmbedController?: SpotifyEmbedController;
-    };
-    if (win.spotifyEmbedController) return;
-
-    const setupController = () => {
       const win = window as unknown as {
         spotifyIFrameAPI?: SpotifyIFrameAPI;
         spotifyEmbedController?: SpotifyEmbedController;
       };
-      const IFrameAPI = win.spotifyIFrameAPI;
-      if (!IFrameAPI) return;
+      if (win.spotifyEmbedController) return;
 
-      const track = currentTrackRef.current;
-      const initialUri = `spotify:${track.type}:${track.id}`;
+      const setupController = () => {
+        const win = window as unknown as {
+          spotifyIFrameAPI?: SpotifyIFrameAPI;
+          spotifyEmbedController?: SpotifyEmbedController;
+        };
+        const IFrameAPI = win.spotifyIFrameAPI;
+        if (!IFrameAPI) return;
 
-      const options = {
-        uri: initialUri,
-        width: "100%",
-        height: "352",
+        const track = currentTrackRef.current;
+        const initialUri = `spotify:${track.type}:${track.id}`;
+
+        const options = {
+          uri: initialUri,
+          width: "100%",
+          height: "352",
+        };
+
+        IFrameAPI.createController(iframeElement, options, (controller: SpotifyEmbedController) => {
+          win.spotifyEmbedController = controller;
+          setEmbedController(controller);
+
+          controller.addListener("playback_update", (e: { data: { isPaused: boolean } }) => {
+            const isPaused = e.data.isPaused;
+            setIsPlaying(!isPaused);
+            setIsPlayingVisualizer(!isPaused);
+            if (!isPaused) {
+              trackSpotifyPlay();
+            }
+            window.dispatchEvent(
+              new CustomEvent("portfolio-spotify-play-state", {
+                detail: { isPlaying: !isPaused },
+              }),
+            );
+          });
+        });
       };
 
-      IFrameAPI.createController(iframeElement, options, (controller: SpotifyEmbedController) => {
-        win.spotifyEmbedController = controller;
-        setEmbedController(controller);
-
-        controller.addListener("playback_update", (e: { data: { isPaused: boolean } }) => {
-          const isPaused = e.data.isPaused;
-          setIsPlaying(!isPaused);
-          setIsPlayingVisualizer(!isPaused);
-          if (!isPaused) {
-            trackSpotifyPlay();
-          }
-          window.dispatchEvent(
-            new CustomEvent("portfolio-spotify-play-state", {
-              detail: { isPlaying: !isPaused },
-            }),
-          );
-        });
-      });
-    };
-
-    if (win.spotifyIFrameAPI) {
-      setupController();
-    } else {
-      window.addEventListener("spotify-iframe-api-ready", setupController, { once: true });
-    }
-  }, []);
+      if (win.spotifyIFrameAPI) {
+        setupController();
+      } else {
+        window.addEventListener("spotify-iframe-api-ready", setupController, { once: true });
+      }
+    },
+    [trackSpotifyPlay],
+  );
 
   const [layout, setLayout] = useState<{
     isDocked: boolean;

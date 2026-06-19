@@ -19,17 +19,21 @@ import type { AchievementUnlock } from "@/hooks/useGamification";
 import { useGamification } from "@/hooks/useGamification";
 
 const ICON_MAP: Record<string, React.ComponentType<{ className?: string }>> = {
-  Sparkles, Compass, BookOpen, Library, HelpCircle, Headphones,
-  Disc3, FileDown, MessageCircle, Workflow, Clock, Trophy,
+  Sparkles,
+  Compass,
+  BookOpen,
+  Library,
+  HelpCircle,
+  Headphones,
+  Disc3,
+  FileDown,
+  MessageCircle,
+  Workflow,
+  Clock,
+  Trophy,
 };
 
-function ToastCard({
-  toast,
-  onDismiss,
-}: {
-  toast: AchievementUnlock;
-  onDismiss: () => void;
-}) {
+function ToastCard({ toast, onDismiss }: { toast: AchievementUnlock; onDismiss: () => void }) {
   const Icon = ICON_MAP[toast.icon] || Sparkles;
 
   useEffect(() => {
@@ -62,12 +66,8 @@ function ToastCard({
               Achievement Unlocked
             </span>
           </div>
-          <p className="font-serif text-base font-bold text-ink leading-tight">
-            {toast.name}
-          </p>
-          <p className="text-xs text-muted-foreground mt-0.5 leading-snug">
-            {toast.description}
-          </p>
+          <p className="font-serif text-base font-bold text-ink leading-tight">{toast.name}</p>
+          <p className="text-xs text-muted-foreground mt-0.5 leading-snug">{toast.description}</p>
           <span className="inline-block mt-1.5 text-[10px] font-mono text-accent font-semibold bg-accent/8 px-2 py-0.5 rounded-full">
             +{toast.xp} XP
           </span>
@@ -96,20 +96,14 @@ function ToastCard({
 export function AchievementToast() {
   const { pendingToasts, dismissToast } = useGamification();
 
-  const handleDismiss = useCallback(
-    (id: string) => dismissToast(id),
-    [dismissToast],
-  );
+  const handleDismiss = useCallback((id: string) => dismissToast(id), [dismissToast]);
 
   return (
     <div className="fixed bottom-6 left-6 z-[60] flex flex-col-reverse gap-3 pointer-events-none">
       <AnimatePresence mode="popLayout">
         {pendingToasts.map((toast) => (
           <div key={toast.id + toast.timestamp} className="pointer-events-auto">
-            <ToastCard
-              toast={toast}
-              onDismiss={() => handleDismiss(toast.id)}
-            />
+            <ToastCard toast={toast} onDismiss={() => handleDismiss(toast.id)} />
           </div>
         ))}
       </AnimatePresence>
